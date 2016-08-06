@@ -20,48 +20,40 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-
             android:layout_alignParentStart="true"
             android:layout_alignTop="@+id/scrollView"
             android:layout_marginTop="0dp"
-            tools:context=".activity.MainActivity"
-            android:background="@android:color/background_light">
+            android:background="@android:color/background_light"
+            tools:context=".activity.MainActivity">
 
             <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginTop="10dip"
-                    android:background="@drawable/back"
-                    android:padding="10dp"
-                    android:text="Sample TextView..."
-                    android:textSize="20dp" />
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:background="@drawable/back"
+                android:padding="10dp"
+                android:text="Sample TextView..."
+                android:textSize="20dp" />
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/textView"
-                    android:layout_gravity="center" />
-
-
-
-
-
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView"
+                android:layout_gravity="center" />
 
             <LinearLayout
-
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/chart"
-                android:background="@color/colorPrimary"
-                android:orientation="horizontal"
                 android:layout_gravity="center_horizontal|bottom"
-                >
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -73,8 +65,8 @@
                     android:layout_weight="1"
                     android:background="#fff"
                     android:orientation="vertical"
-                    android:paddingTop="10dip"
-                    android:paddingBottom="10dip">
+                    android:paddingBottom="10dip"
+                    android:paddingTop="10dip">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -128,8 +120,8 @@
                     android:layout_weight="1"
                     android:background="#fff"
                     android:orientation="vertical"
-                    android:paddingTop="10dip"
-                    android:paddingBottom="10dip">
+                    android:paddingBottom="10dip"
+                    android:paddingTop="10dip">
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -144,8 +136,8 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/max"
-                        android:textSize="20dip"
-                        android:textColor="@android:color/holo_red_dark" />
+                        android:textColor="@android:color/holo_red_dark"
+                        android:textSize="20dip" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -153,15 +145,10 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/min"
-                        android:textSize="20dip"
-                        android:textColor="@android:color/holo_blue_dark" />
+                        android:textColor="@android:color/holo_blue_dark"
+                        android:textSize="20dip" />
                 </LinearLayout>
             </LinearLayout>
-
         </RelativeLayout>
-
-
     </ScrollView>
-
-
 </RelativeLayout>
