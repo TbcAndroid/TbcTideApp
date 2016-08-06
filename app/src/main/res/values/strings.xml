@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TbcTideApp</string>
+    <string name="moon_old">月齢：</string>
+    <string name="sunrize">日出：</string>
+    <string name="sunset">日入：</string>
+    <string name="moonrise">月出：</string>
+    <string name="moonset">月入：</string>
+    <string name="max">最高：</string>
+    <string name="min">最低：</string>
 </resources>
