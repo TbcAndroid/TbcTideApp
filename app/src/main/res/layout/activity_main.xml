@@ -27,7 +27,7 @@
             tools:context=".activity.MainActivity">
 
             <TextView
-                android:id="@+id/dateTextView"
+                android:id="@+id/calendarView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
@@ -43,7 +43,7 @@
                 android:layout_height="200dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/dateTextView"
+                android:layout_below="@+id/calendarView"
                 android:layout_gravity="center" />
 
             <LinearLayout

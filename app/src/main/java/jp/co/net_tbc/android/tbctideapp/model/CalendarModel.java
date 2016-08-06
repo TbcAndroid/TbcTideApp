@@ -8,6 +8,7 @@ public class CalendarModel {
     int year;
     int month;
     int day;
+    String dayOfWeek;
 
     /**
      * constructor.
@@ -42,5 +43,13 @@ public class CalendarModel {
 
     public void setDay(int day) {
         this.day = day;
+    }
+
+    public String getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 }
