@@ -26,7 +26,29 @@
             android:background="@android:color/background_light"
             tools:context=".activity.MainActivity">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dip"
+                android:orientation="vertical"
+                android:id="@+id/status_view"
+                android:background="@color/colorPrimary">
+                
+                <TextView
+                    android:gravity="center"
+                    android:textSize="30dip"
+
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="小浜"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+
             <TextView
+                android:layout_below="@+id/status_view"
+
                 android:id="@+id/calendarView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,7 +57,8 @@
                 android:background="@drawable/back"
                 android:padding="10dp"
                 android:text="Sample TextView..."
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                />
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart"
