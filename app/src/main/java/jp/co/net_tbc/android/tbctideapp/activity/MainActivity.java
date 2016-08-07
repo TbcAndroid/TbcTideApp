@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,11 +17,14 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import jp.co.net_tbc.android.tbctideapp.R;
+import jp.co.net_tbc.android.tbctideapp.chart.TideChartSetter;
 import jp.co.net_tbc.android.tbctideapp.model.CalendarModel;
 import jp.co.net_tbc.android.tbctideapp.model.FishStarModel;
+import jp.co.net_tbc.android.tbctideapp.model.TideTailModel;
 import jp.co.net_tbc.android.tbctideapp.model.WeatherModel;
 import jp.co.net_tbc.android.tbctideapp.util.MoonUtil;
 
@@ -48,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
         setStarFishData();
         setCalendarView();
         setWeatherView();
+
+        TideChartSetter tideChartSetter = new TideChartSetter((LineChart) findViewById(R.id.chart), FishStarModel.getInstance());
+        tideChartSetter.setChart();
     }
 
     /* private method start */
@@ -72,6 +79,18 @@ public class MainActivity extends AppCompatActivity {
         fishStarModel.setMoonsetTime("2:00");
         fishStarModel.setSunriseTime("3:00");
         fishStarModel.setSunsetTime("4:00");
+
+        int[] tideLevelAry = {37, 34, 43, 19};
+        String[] tideTimeAry = {"01:28", "05:10", "11:08", "18:53"};
+        ArrayList<TideTailModel> tideTails = new ArrayList<>();
+
+        for (int i = 0; i < tideLevelAry.length; i++) {
+            TideTailModel tideTailModel = new TideTailModel();
+            tideTailModel.setTideLevel(tideLevelAry[i]);
+            tideTailModel.setTideTime(tideTimeAry[i]);
+            tideTails.add(i, tideTailModel);
+        }
+        fishStarModel.setTideTails(tideTails);
 
         /* Init WeatherModel */
         // 月齢を計算する

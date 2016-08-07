@@ -5,7 +5,7 @@ package jp.co.net_tbc.android.tbctideapp.model;
  */
 public class TideTailModel {
     private String tideTime;
-    private String tideLevel;
+    private int tideLevel;
 
     public String getTideTime() {
         return tideTime;
@@ -15,11 +15,11 @@ public class TideTailModel {
         this.tideTime = tideTime;
     }
 
-    public String getTideLevel() {
+    public int getTideLevel() {
         return tideLevel;
     }
 
-    public void setTideLevel(String tideLevel) {
+    public void setTideLevel(int tideLevel) {
         this.tideLevel = tideLevel;
     }
 }
