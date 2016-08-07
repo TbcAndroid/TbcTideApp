@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setCalendarView();
         setWeatherView();
 
-        TideChartSetter tideChartSetter = new TideChartSetter((LineChart) findViewById(R.id.chart), FishStarModel.getInstance());
+        TideChartSetter tideChartSetter = new TideChartSetter((LineChart) findViewById(R.id.chart), getApplicationContext(), FishStarModel.getInstance());
         tideChartSetter.setChart();
     }
 

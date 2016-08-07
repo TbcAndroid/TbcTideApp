@@ -1,6 +1,7 @@
 package jp.co.net_tbc.android.tbctideapp.chart;
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -11,6 +12,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
 
+import jp.co.net_tbc.android.tbctideapp.R;
 import jp.co.net_tbc.android.tbctideapp.model.FishStarModel;
 import jp.co.net_tbc.android.tbctideapp.model.TideTailModel;
 
@@ -19,13 +21,15 @@ import jp.co.net_tbc.android.tbctideapp.model.TideTailModel;
  */
 public class TideChartSetter {
     private LineChart mChart;
+    private Context context;
     private FishStarModel fishStarModel;
 
     /**
      * Constructor.
      */
-    public TideChartSetter(LineChart mChart, FishStarModel fishStarModel) {
+    public TideChartSetter(LineChart mChart, Context context, FishStarModel fishStarModel) {
         this.mChart = mChart;
+        this.context = context;
         this.fishStarModel = fishStarModel;
     }
 
@@ -35,6 +39,9 @@ public class TideChartSetter {
         // 縦軸の設定
         LineDataSet lineDataSet = new LineDataSet(getEntry(), "潮位");
         lineDataSet.setDrawCubic(true);
+        lineDataSet.setColor(context.getResources().getColor(R.color.colorPrimary));
+        lineDataSet.setCircleColor(context.getResources().getColor(R.color.colorPrimary));
+        lineDataSet.setLineWidth(2);
         LineData data = new LineData(getLabel(), lineDataSet);
         mChart.setData(data);
     }
