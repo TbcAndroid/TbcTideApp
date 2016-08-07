@@ -1,11 +1,13 @@
 package jp.co.net_tbc.android.tbctideapp.activity;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // ClickListener初期化
+        initClickListener();
     }
 
     @Override
@@ -92,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setCalendarView() {
         // テキストビューインスタンスを取得する
-        TextView textView = (TextView) this.findViewById(R.id.calendarView);
+        TextView textView = (TextView) this.findViewById(R.id.calendar_view);
 
         // モデルのインスタンスを取得する
         CalendarModel calendarModel = CalendarModel.getInstance();
@@ -119,7 +124,33 @@ public class MainActivity extends AppCompatActivity {
 
         maxView.setText(getText(R.string.max) + String.valueOf(weatherModel.getMaxTemp()) + "℃");
         minView.setText(getText(R.string.min) + String.valueOf(weatherModel.getMinTemp()) +" ℃");
+    }
 
+    private void initClickListener(){
+        // SpotActivityを起動するClickリスナーを作成する
+        TextView statusView = (TextView) findViewById(R.id.status_text);
+        statusView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // インテントを生成する
+                Intent intent = new Intent(getApplication(), SpotActivity.class);
+                // SpotActivityを起動する
+                startActivity(intent);
+            }
+        });
+
+        // CalendarActivityを起動するClickリスナーを作成する
+        TextView calendarView = (TextView) findViewById(R.id.calendar_view);
+        calendarView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // インテントを生成する
+                Intent intent = new Intent(getApplication(), CalendarActivity.class);
+                // SpotActivityを起動する
+                startActivity(intent);
+            }
+
+        });
     }
     /* private method end */
 }

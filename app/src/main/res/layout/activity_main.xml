@@ -42,14 +42,15 @@
                     android:layout_height="match_parent"
                     android:text="小浜"
                     android:textStyle="bold"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:id="@+id/status_text" />
 
             </LinearLayout>
 
             <TextView
                 android:layout_below="@+id/status_view"
 
-                android:id="@+id/calendarView"
+                android:id="@+id/calendar_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
@@ -66,7 +67,7 @@
                 android:layout_height="200dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/calendarView"
+                android:layout_below="@+id/calendar_view"
                 android:layout_gravity="center" />
 
             <LinearLayout
