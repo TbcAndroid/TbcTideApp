@@ -123,10 +123,10 @@ public class MainActivity extends AppCompatActivity {
         weatherImgView.setImageBitmap(bitmap);
 
         maxView.setText(getText(R.string.max) + String.valueOf(weatherModel.getMaxTemp()) + "℃");
-        minView.setText(getText(R.string.min) + String.valueOf(weatherModel.getMinTemp()) +" ℃");
+        minView.setText(getText(R.string.min) + String.valueOf(weatherModel.getMinTemp()) + " ℃");
     }
 
-    private void initClickListener(){
+    private void initClickListener() {
         // SpotActivityを起動するClickリスナーを作成する
         TextView statusView = (TextView) findViewById(R.id.status_text);
         statusView.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
         // CalendarActivityを起動するClickリスナーを作成する
         TextView calendarView = (TextView) findViewById(R.id.calendar_view);
-        calendarView.setOnClickListener(new View.OnClickListener(){
+        calendarView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // インテントを生成する
