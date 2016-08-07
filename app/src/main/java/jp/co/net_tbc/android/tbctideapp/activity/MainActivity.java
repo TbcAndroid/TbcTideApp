@@ -1,15 +1,20 @@
 package jp.co.net_tbc.android.tbctideapp.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.github.mikephil.charting.charts.LineChart;
 
 import java.util.Calendar;
 
@@ -33,7 +38,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        initTestData();
+
+        // ネットワークが使用可能か確認する
+        boolean netEnable = checkNetEnable();
+
+        // Error時にviewを切り替える
+        initView(netEnable);
+
         setStarFishData();
         setCalendarView();
         setWeatherView();
@@ -69,6 +80,35 @@ public class MainActivity extends AppCompatActivity {
         weatherModel.setMaxTemp(10000);
         weatherModel.setIcon("01n");
         weatherModel.setMinTemp(10);
+    }
+
+    private void initErrMsg() {
+        /* Init CalendarModel */
+        Calendar calendar = Calendar.getInstance();
+        CalendarModel calendarModel = CalendarModel.getInstance();
+        calendarModel.setYear(calendar.get(Calendar.YEAR));
+        calendarModel.setMonth(calendar.get(Calendar.MONTH) + 1);
+        calendarModel.setDay(calendar.get(Calendar.DAY_OF_MONTH));
+
+        String[] week_name = {"日曜日", "月曜日", "火曜日", "水曜日",
+                "木曜日", "金曜日", "土曜日"};
+
+        calendarModel.setDayOfWeek(week_name[calendar.get(Calendar.DAY_OF_WEEK) - 1]);
+
+        /* Init FishStarModel */
+        FishStarModel fishStarModel = FishStarModel.getInstance();
+        fishStarModel.setMoonriseTime("");
+        fishStarModel.setMoonsetTime("");
+        fishStarModel.setSunriseTime("");
+        fishStarModel.setSunsetTime("");
+
+        /* Init WeatherModel */
+        // 月齢を計算する
+        fishStarModel.setTideName("");
+        WeatherModel weatherModel = WeatherModel.getInstance();
+        weatherModel.setMaxTemp(0);
+        weatherModel.setIcon("01d");
+        weatherModel.setMinTemp(0);
     }
 
 
@@ -152,5 +192,29 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
-    /* private method end */
+
+    private boolean checkNetEnable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
+        if (netInfo != null) {
+            return netInfo.isConnected();
+        } else {
+            return false;
+        }
+    }
+
+    private void initView(boolean netEna) {
+        LineChart lineChart = (LineChart) findViewById(R.id.chart);
+        TextView errText = (TextView) findViewById(R.id.error_text);
+
+        if (netEna) {
+            initTestData();
+            lineChart.setVisibility(View.VISIBLE);
+            errText.setVisibility(View.INVISIBLE);
+        } else {
+            initErrMsg();
+            lineChart.setVisibility(View.INVISIBLE);
+            errText.setVisibility(View.VISIBLE);
+        }
+    }
 }

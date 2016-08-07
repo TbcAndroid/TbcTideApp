@@ -70,6 +70,23 @@
                 android:layout_below="@+id/calendar_view"
                 android:layout_gravity="center" />
 
+
+            <TextView
+                android:id="@+id/error_text"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/calendar_view"
+                android:layout_gravity="center"
+                android:text="ネットワークを\n使用できません"
+                android:textSize="30dip"
+                android:textColor="@android:color/holo_red_dark"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:visibility="invisible" />
+
+
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
