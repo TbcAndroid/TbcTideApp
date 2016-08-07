@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,13 +42,13 @@ public class MainActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         CalendarModel calendarModel = CalendarModel.getInstance();
         calendarModel.setYear(calendar.get(Calendar.YEAR));
-        calendarModel.setMonth(calendar.get(Calendar.MONTH));
+        calendarModel.setMonth(calendar.get(Calendar.MONTH) + 1);
         calendarModel.setDay(calendar.get(Calendar.DAY_OF_MONTH));
 
         String[] week_name = {"日曜日", "月曜日", "火曜日", "水曜日",
                 "木曜日", "金曜日", "土曜日"};
 
-        calendarModel.setDayOfWeek(week_name[calendar.get(Calendar.DAY_OF_WEEK)]);
+        calendarModel.setDayOfWeek(week_name[calendar.get(Calendar.DAY_OF_WEEK) - 1]);
 
         /* Init FishStarModel */
         FishStarModel fishStarModel = FishStarModel.getInstance();
@@ -58,9 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         /* Init WeatherModel */
         // 月齢を計算する
-        int moon_old = MoonUtil.calculateAgeOfTheMoon(calendarModel.getYear(), calendarModel.getMonth(), calendarModel.getDay());
-        MoonUtil.LunarPhaseType lunarPhaseType = MoonUtil.getLunarPhaseType(moon_old);
-        fishStarModel.setTideName(lunarPhaseType.getText());
+        fishStarModel.setTideName("中潮");
         WeatherModel weatherModel = WeatherModel.getInstance();
         weatherModel.setMaxTemp(10000);
         weatherModel.setIcon("01n");
@@ -98,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
         // モデルのインスタンスを取得する
         CalendarModel calendarModel = CalendarModel.getInstance();
         FishStarModel fishStarModel = FishStarModel.getInstance();
-
-        textView.setText(calendarModel.getMonth() + "月" + calendarModel.getDay() + "日(" + calendarModel.getDayOfWeek() + ") " + fishStarModel.getTideName());
+        String htmlStr = calendarModel.getMonth() + "月" + calendarModel.getDay() + "日(" + calendarModel.getDayOfWeek() + ") " + "<font color=" + getText(R.string.font_color_tide_name) + ">" + fishStarModel.getTideName() + "</font>";
+        textView.setText(Html.fromHtml(htmlStr));
     }
 
     private void setWeatherView() {
