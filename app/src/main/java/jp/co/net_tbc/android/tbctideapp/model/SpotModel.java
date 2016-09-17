@@ -6,6 +6,11 @@ package jp.co.net_tbc.android.tbctideapp.model;
 public class SpotModel {
     private static final SpotModel spotModel = new SpotModel();
     private int portId;
+    private String portName;
+    // 緯度
+    private double latitude;
+    // 経度
+    private double longitude;
 
     /**
      * Constructor
@@ -25,4 +30,16 @@ public class SpotModel {
     public void setPortId(int portId) {
         this.portId = portId;
     }
+
+    public String getPortName() { return portName; }
+
+    public void setPortName(String portName) { this.portName = portName; }
+
+    public double getLatitude() { return latitude; }
+
+    public void setLatitude(double latitude) { this.latitude = latitude; }
+
+    public double getLongitude() { return longitude; }
+
+    public void setLongitude(double longitude) { this.longitude = longitude; }
 }
