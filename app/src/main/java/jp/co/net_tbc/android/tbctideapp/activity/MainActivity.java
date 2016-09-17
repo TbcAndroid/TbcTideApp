@@ -9,7 +9,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,6 +25,7 @@ import jp.co.net_tbc.android.tbctideapp.model.CalendarModel;
 import jp.co.net_tbc.android.tbctideapp.model.FishStarModel;
 import jp.co.net_tbc.android.tbctideapp.model.TideTailModel;
 import jp.co.net_tbc.android.tbctideapp.model.WeatherModel;
+import jp.co.net_tbc.android.tbctideapp.thread.GetDayWeatherInfoThread;
 import jp.co.net_tbc.android.tbctideapp.util.MoonUtil;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,6 +48,21 @@ public class MainActivity extends AppCompatActivity {
 
         // Error時にviewを切り替える
         initView(netEnable);
+
+        // 天気情報が利用できない場合、Viewにエラーメッセージを表示する
+        initWeatherView(WeatherModel.enaGetWeatherInfo());
+
+        if(WeatherModel.enaGetWeatherInfo()){
+            GetDayWeatherInfoThread getDayWeatherInfoThread = new GetDayWeatherInfoThread();
+            Thread weatherThread = new Thread(getDayWeatherInfoThread);
+            weatherThread.start();
+            try {
+                weatherThread.join(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                initWeatherView(false);
+            }
+        }
 
         setStarFishData();
         setCalendarView();
@@ -181,8 +196,8 @@ public class MainActivity extends AppCompatActivity {
         Bitmap bitmap = BitmapFactory.decodeResource(res, imageResource);
         weatherImgView.setImageBitmap(bitmap);
 
-        maxView.setText(getText(R.string.max) + String.valueOf(weatherModel.getMaxTemp()) + "℃");
-        minView.setText(getText(R.string.min) + String.valueOf(weatherModel.getMinTemp()) + " ℃");
+        maxView.setText(getText(R.string.max) + String.format("%1$.1f", weatherModel.getMaxTemp()) + "℃");
+        minView.setText(getText(R.string.min) + String.format("%1$.1f", weatherModel.getMinTemp()) + " ℃");
     }
 
     private void initClickListener() {
@@ -233,6 +248,25 @@ public class MainActivity extends AppCompatActivity {
         } else {
             initErrMsg();
             lineChart.setVisibility(View.INVISIBLE);
+            errText.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void initWeatherView(boolean weatherEna){
+        TextView errText = (TextView) findViewById(R.id.errorWeather);
+        ImageView weatherIcon = (ImageView) findViewById(R.id.weatherIcon);
+        TextView maxTemp = (TextView) findViewById(R.id.maxView);
+        TextView minTemp = (TextView) findViewById(R.id.minView);
+
+        if(weatherEna){
+            weatherIcon.setVisibility(View.VISIBLE);
+            maxTemp.setVisibility(View.VISIBLE);
+            minTemp.setVisibility(View.VISIBLE);
+            errText.setVisibility(View.GONE);
+        } else{
+            weatherIcon.setVisibility(View.GONE);
+            maxTemp.setVisibility(View.GONE);
+            minTemp.setVisibility(View.GONE);
             errText.setVisibility(View.VISIBLE);
         }
     }

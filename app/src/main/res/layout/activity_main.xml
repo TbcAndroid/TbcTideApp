@@ -197,6 +197,20 @@
                         android:textColor="@android:color/holo_blue_dark"
                         android:textSize="20dip"
                         android:id="@+id/minView" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/errorWeather"
+                        android:text="天気情報を\n取得できません"
+                        android:textSize="20dip"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:visibility="invisible"
+                        />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
