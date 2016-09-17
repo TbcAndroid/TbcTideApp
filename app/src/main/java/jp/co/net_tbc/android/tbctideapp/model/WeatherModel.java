@@ -12,7 +12,7 @@ public class WeatherModel {
     private String icon;
 
     /* constructor */
-    public WeatherModel() {
+    private WeatherModel() {
     }
 
     /* Singleton */

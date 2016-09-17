@@ -10,7 +10,7 @@ public class SpotModel {
     /**
      * Constructor
      */
-    public SpotModel() {
+    private SpotModel() {
     }
 
 

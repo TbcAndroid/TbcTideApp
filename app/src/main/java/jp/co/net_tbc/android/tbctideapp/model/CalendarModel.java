@@ -13,7 +13,7 @@ public class CalendarModel {
     /**
      * constructor.
      */
-    public CalendarModel() {
+    private CalendarModel() {
     }
 
     /* singleton pattern*/

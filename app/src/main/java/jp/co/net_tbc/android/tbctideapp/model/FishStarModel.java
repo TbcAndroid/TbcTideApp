@@ -14,7 +14,7 @@ public class FishStarModel {
     private String tideName;
     private List<TideTailModel> tideTails;
 
-    public FishStarModel() {
+    private FishStarModel() {
     }
 
     public static FishStarModel getInstance() {
