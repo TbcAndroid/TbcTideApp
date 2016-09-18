@@ -27,39 +27,38 @@
             tools:context=".activity.MainActivity">
 
             <LinearLayout
+                android:id="@+id/status_view"
                 android:layout_width="match_parent"
                 android:layout_height="70dip"
-                android:orientation="vertical"
-                android:id="@+id/status_view"
-                android:background="@color/colorPrimary">
-                
-                <TextView
-                    android:gravity="center"
-                    android:textSize="30dip"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical">
 
-                    android:layout_weight="1"
+                <TextView
+                    android:id="@+id/status_text"
                     android:layout_width="match_parent"
+
                     android:layout_height="match_parent"
-                    android:text="小浜"
-                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="選択してください"
                     android:textColor="@android:color/white"
-                    android:id="@+id/status_text" />
+                    android:textSize="30dip"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <TextView
-                android:layout_below="@+id/status_view"
-
                 android:id="@+id/calendar_view"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/status_view"
                 android:layout_marginLeft="10dip"
                 android:layout_marginTop="10dip"
                 android:background="@drawable/back"
                 android:padding="10dp"
                 android:text="Sample TextView..."
-                android:textSize="20dp"
-                />
+                android:textSize="20dp" />
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart"
@@ -79,10 +78,10 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/calendar_view"
                 android:layout_gravity="center"
-                android:text="ネットワークを\n使用できません"
-                android:textSize="30dip"
-                android:textColor="@android:color/holo_red_dark"
                 android:gravity="center"
+                android:text="ネットワークを\n使用できません"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="30dip"
                 android:textStyle="bold"
                 android:visibility="invisible" />
 
@@ -97,6 +96,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/FishStarView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="20dp"
@@ -107,54 +107,53 @@
                     android:background="#fff"
                     android:orientation="vertical"
                     android:paddingBottom="10dip"
-                    android:paddingTop="10dip"
-                    android:id="@+id/FishStarView">
+                    android:paddingTop="10dip">
 
                     <TextView
+                        android:id="@+id/moon_old"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/moon_old"
-                        android:textSize="20dip"
-                        android:id="@+id/moon_old" />
+                        android:textSize="20dip" />
 
                     <TextView
+                        android:id="@+id/moonrise"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/moonrise"
-                        android:textSize="20dip"
-                        android:id="@+id/moonrise" />
+                        android:textSize="20dip" />
 
 
                     <TextView
+                        android:id="@+id/moonset"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/moonset"
-                        android:textSize="20dip"
-                        android:id="@+id/moonset" />
+                        android:textSize="20dip" />
 
                     <TextView
+                        android:id="@+id/sunrize"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/sunrize"
-                        android:textSize="20dip"
-                        android:id="@+id/sunrize" />
+                        android:textSize="20dip" />
 
                     <TextView
+                        android:id="@+id/sunset"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/sunset"
-                        android:textSize="20dip"
-                        android:id="@+id/sunset" />
+                        android:textSize="20dip" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -171,46 +170,54 @@
                     android:paddingTop="10dip">
 
                     <ImageView
+                        android:id="@+id/weatherIcon"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:src="@drawable/w01d"
-                        android:id="@+id/weatherIcon" />
+                        android:src="@drawable/w01d" />
 
                     <TextView
+                        android:id="@+id/weatherSummary"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/max"
+                        android:textSize="20dip" />
+
+                    <TextView
+                        android:id="@+id/maxView"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/max"
                         android:textColor="@android:color/holo_red_dark"
-                        android:textSize="20dip"
-                        android:id="@+id/maxView" />
+                        android:textSize="20dip" />
 
                     <TextView
+                        android:id="@+id/minView"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/min"
                         android:textColor="@android:color/holo_blue_dark"
-                        android:textSize="20dip"
-                        android:id="@+id/minView" />
+                        android:textSize="20dip" />
 
 
                     <TextView
+                        android:id="@+id/errorWeather"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:id="@+id/errorWeather"
-                        android:text="天気情報を\n取得できません"
-                        android:textSize="20dip"
-                        android:textColor="@android:color/holo_red_dark"
                         android:gravity="center"
+                        android:text="天気情報を\n取得できません"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:textSize="20dip"
                         android:textStyle="bold"
-                        android:visibility="invisible"
-                        />
+                        android:visibility="invisible" />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>

@@ -7,8 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -23,6 +24,7 @@ import jp.co.net_tbc.android.tbctideapp.R;
 import jp.co.net_tbc.android.tbctideapp.chart.TideChartSetter;
 import jp.co.net_tbc.android.tbctideapp.model.CalendarModel;
 import jp.co.net_tbc.android.tbctideapp.model.FishStarModel;
+import jp.co.net_tbc.android.tbctideapp.model.SpotModel;
 import jp.co.net_tbc.android.tbctideapp.model.TideTailModel;
 import jp.co.net_tbc.android.tbctideapp.model.WeatherModel;
 import jp.co.net_tbc.android.tbctideapp.thread.GetDayWeatherInfoThread;
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         // 天気情報が利用できない場合、Viewにエラーメッセージを表示する
         initWeatherView(WeatherModel.enaGetWeatherInfo());
 
-        if(WeatherModel.enaGetWeatherInfo()){
+        if (WeatherModel.enaGetWeatherInfo()) {
             GetDayWeatherInfoThread getDayWeatherInfoThread = new GetDayWeatherInfoThread();
             Thread weatherThread = new Thread(getDayWeatherInfoThread);
             weatherThread.start();
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        setPortName();
         setStarFishData();
         setCalendarView();
         setWeatherView();
@@ -114,6 +117,12 @@ public class MainActivity extends AppCompatActivity {
         weatherModel.setMaxTemp(10000);
         weatherModel.setIcon("01n");
         weatherModel.setMinTemp(10);
+
+        //SpotModel
+        SpotModel spotModel = SpotModel.getInstance();
+        spotModel.setLatitude(34.702485);
+        spotModel.setLongitude(135.495951);
+        spotModel.setPortName("大阪");
     }
 
     private void initErrMsg() {
@@ -145,14 +154,19 @@ public class MainActivity extends AppCompatActivity {
         weatherModel.setMinTemp(0);
     }
 
+    private void setPortName() {
+        // タイトルの港を入力する
+        TextView portName = (TextView) findViewById(R.id.status_text);
+        portName.setText(SpotModel.getInstance().getPortName());
+    }
 
     private void setStarFishData() {
         // テキストビューインスタンスを取得する
-        TextView moonOld = (TextView) this.findViewById(R.id.moon_old);
-        TextView moonRise = (TextView) this.findViewById(R.id.moonrise);
-        TextView moonSet = (TextView) this.findViewById(R.id.moonset);
-        TextView sunRise = (TextView) this.findViewById(R.id.sunrize);
-        TextView sunSet = (TextView) this.findViewById(R.id.sunset);
+        TextView moonOld = (TextView) findViewById(R.id.moon_old);
+        TextView moonRise = (TextView) findViewById(R.id.moonrise);
+        TextView moonSet = (TextView) findViewById(R.id.moonset);
+        TextView sunRise = (TextView) findViewById(R.id.sunrize);
+        TextView sunSet = (TextView) findViewById(R.id.sunset);
 
         // モデルのインスタンスを取得する
         CalendarModel calendarModel = CalendarModel.getInstance();
@@ -171,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setCalendarView() {
         // テキストビューインスタンスを取得する
-        TextView textView = (TextView) this.findViewById(R.id.calendar_view);
+        TextView textView = (TextView) findViewById(R.id.calendar_view);
 
         // モデルのインスタンスを取得する
         CalendarModel calendarModel = CalendarModel.getInstance();
@@ -186,15 +200,27 @@ public class MainActivity extends AppCompatActivity {
 
         // ビューインスタンスを取得する
         ImageView weatherImgView = (ImageView) findViewById(R.id.weatherIcon);
+        TextView weatherSummary = (TextView) findViewById(R.id.weatherSummary);
         TextView maxView = (TextView) findViewById(R.id.maxView);
         TextView minView = (TextView) findViewById(R.id.minView);
 
 
         String uri = "drawable/w" + weatherModel.getIcon();
         int imageResource = getResources().getIdentifier(uri, null, getPackageName());
-        Resources res = this.getApplicationContext().getResources();
+        Resources res = getApplicationContext().getResources();
         Bitmap bitmap = BitmapFactory.decodeResource(res, imageResource);
         weatherImgView.setImageBitmap(bitmap);
+
+        // 天気情報の時間を表示する
+        Calendar weatherCalendar = Calendar.getInstance();
+        weatherCalendar.setTimeInMillis(weatherModel.getWeatherDt());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("M/d H:mm");
+        String weatherTime = simpleDateFormat.format(weatherCalendar.getTime());
+
+        String summaryText = weatherModel.getWeather();
+
+        // 天気情報の時間および天気概要を表示する
+        weatherSummary.setText(summaryText + " (" + weatherTime + ")");
 
         maxView.setText(getText(R.string.max) + String.format("%1$.1f", weatherModel.getMaxTemp()) + "℃");
         minView.setText(getText(R.string.min) + String.format("%1$.1f", weatherModel.getMinTemp()) + " ℃");
@@ -252,19 +278,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void initWeatherView(boolean weatherEna){
+    private void initWeatherView(boolean weatherEna) {
         TextView errText = (TextView) findViewById(R.id.errorWeather);
         ImageView weatherIcon = (ImageView) findViewById(R.id.weatherIcon);
+        TextView weatherSummary = (TextView) findViewById(R.id.weatherSummary);
         TextView maxTemp = (TextView) findViewById(R.id.maxView);
         TextView minTemp = (TextView) findViewById(R.id.minView);
 
-        if(weatherEna){
+        if (weatherEna) {
             weatherIcon.setVisibility(View.VISIBLE);
+            weatherSummary.setVisibility(View.VISIBLE);
             maxTemp.setVisibility(View.VISIBLE);
             minTemp.setVisibility(View.VISIBLE);
             errText.setVisibility(View.GONE);
-        } else{
+        } else {
             weatherIcon.setVisibility(View.GONE);
+            weatherSummary.setVisibility(View.GONE);
             maxTemp.setVisibility(View.GONE);
             minTemp.setVisibility(View.GONE);
             errText.setVisibility(View.VISIBLE);
