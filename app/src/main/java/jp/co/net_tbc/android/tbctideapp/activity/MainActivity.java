@@ -1,44 +1,37 @@
 package jp.co.net_tbc.android.tbctideapp.activity;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import jp.co.net_tbc.android.tbctideapp.R;
 import jp.co.net_tbc.android.tbctideapp.chart.TideChartSetter;
+import jp.co.net_tbc.android.tbctideapp.helper.MainActivityViewHelper;
 import jp.co.net_tbc.android.tbctideapp.model.CalendarModel;
 import jp.co.net_tbc.android.tbctideapp.model.FishStarModel;
 import jp.co.net_tbc.android.tbctideapp.model.SpotModel;
 import jp.co.net_tbc.android.tbctideapp.model.TideTailModel;
 import jp.co.net_tbc.android.tbctideapp.model.WeatherModel;
 import jp.co.net_tbc.android.tbctideapp.thread.GetDayWeatherInfoThread;
-import jp.co.net_tbc.android.tbctideapp.util.MoonUtil;
 
 public class MainActivity extends AppCompatActivity {
+    MainActivityViewHelper mainActivityViewHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mainActivityViewHelper = new MainActivityViewHelper(this);
         // ClickListener初期化
-        initClickListener();
+        mainActivityViewHelper.initClickListener();
     }
 
     @Override
@@ -49,12 +42,18 @@ public class MainActivity extends AppCompatActivity {
         boolean netEnable = checkNetEnable();
 
         // Error時にviewを切り替える
-        initView(netEnable);
+        mainActivityViewHelper.initView(netEnable);
+
+        if (netEnable) {
+            initTestData();
+        } else {
+            initErrMsg();
+        }
 
         // 天気情報が利用できない場合、Viewにエラーメッセージを表示する
-        initWeatherView(WeatherModel.enaGetWeatherInfo());
+        mainActivityViewHelper.initWeatherView(WeatherModel.enaGetWeatherInfo());
 
-        if (WeatherModel.enaGetWeatherInfo()) {
+        if (netEnable && WeatherModel.enaGetWeatherInfo()) {
             GetDayWeatherInfoThread getDayWeatherInfoThread = new GetDayWeatherInfoThread();
             Thread weatherThread = new Thread(getDayWeatherInfoThread);
             weatherThread.start();
@@ -62,17 +61,19 @@ public class MainActivity extends AppCompatActivity {
                 weatherThread.join(10000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-                initWeatherView(false);
+                mainActivityViewHelper.initWeatherView(false);
             }
         }
 
-        setPortName();
-        setStarFishData();
-        setCalendarView();
-        setWeatherView();
+        mainActivityViewHelper.setPortName();
+        mainActivityViewHelper.setStarFishData();
+        mainActivityViewHelper.setCalendarView();
+        mainActivityViewHelper.setWeatherView();
 
-        TideChartSetter tideChartSetter = new TideChartSetter((LineChart) findViewById(R.id.chart), getApplicationContext(), FishStarModel.getInstance());
-        tideChartSetter.setChart();
+        if (netEnable) {
+            TideChartSetter tideChartSetter = new TideChartSetter((LineChart) findViewById(R.id.chart), getApplicationContext(), FishStarModel.getInstance());
+            tideChartSetter.setChart();
+        }
     }
 
     /* private method start */
@@ -152,105 +153,7 @@ public class MainActivity extends AppCompatActivity {
         weatherModel.setMaxTemp(0);
         weatherModel.setIcon("01d");
         weatherModel.setMinTemp(0);
-    }
-
-    private void setPortName() {
-        // タイトルの港を入力する
-        TextView portName = (TextView) findViewById(R.id.status_text);
-        portName.setText(SpotModel.getInstance().getPortName());
-    }
-
-    private void setStarFishData() {
-        // テキストビューインスタンスを取得する
-        TextView moonOld = (TextView) findViewById(R.id.moon_old);
-        TextView moonRise = (TextView) findViewById(R.id.moonrise);
-        TextView moonSet = (TextView) findViewById(R.id.moonset);
-        TextView sunRise = (TextView) findViewById(R.id.sunrize);
-        TextView sunSet = (TextView) findViewById(R.id.sunset);
-
-        // モデルのインスタンスを取得する
-        CalendarModel calendarModel = CalendarModel.getInstance();
-        FishStarModel fishStarModel = FishStarModel.getInstance();
-
-        // 月齢を計算する
-        int moon_old = MoonUtil.calculateAgeOfTheMoon(calendarModel.getYear(), calendarModel.getMonth(), calendarModel.getDay());
-
-        // テキストビューに値を入力する
-        moonOld.setText(getString(R.string.moon_old) + String.valueOf(moon_old));
-        moonRise.setText(getString(R.string.moonrise) + String.valueOf(fishStarModel.getMoonriseTime()));
-        moonSet.setText(getString(R.string.moonset) + String.valueOf(fishStarModel.getMoonsetTime()));
-        sunRise.setText(getString(R.string.sunrize) + String.valueOf(fishStarModel.getSunriseTime()));
-        sunSet.setText(getString(R.string.sunset) + String.valueOf(fishStarModel.getSunsetTime()));
-    }
-
-    private void setCalendarView() {
-        // テキストビューインスタンスを取得する
-        TextView textView = (TextView) findViewById(R.id.calendar_view);
-
-        // モデルのインスタンスを取得する
-        CalendarModel calendarModel = CalendarModel.getInstance();
-        FishStarModel fishStarModel = FishStarModel.getInstance();
-        String htmlStr = calendarModel.getMonth() + "月" + calendarModel.getDay() + "日(" + calendarModel.getDayOfWeek() + ") " + "<font color=" + getText(R.string.font_color_tide_name) + ">" + fishStarModel.getTideName() + "</font>";
-        textView.setText(Html.fromHtml(htmlStr));
-    }
-
-    private void setWeatherView() {
-        // モデルのインスタンスを取得する
-        WeatherModel weatherModel = WeatherModel.getInstance();
-
-        // ビューインスタンスを取得する
-        ImageView weatherImgView = (ImageView) findViewById(R.id.weatherIcon);
-        TextView weatherSummary = (TextView) findViewById(R.id.weatherSummary);
-        TextView maxView = (TextView) findViewById(R.id.maxView);
-        TextView minView = (TextView) findViewById(R.id.minView);
-
-
-        String uri = "drawable/w" + weatherModel.getIcon();
-        int imageResource = getResources().getIdentifier(uri, null, getPackageName());
-        Resources res = getApplicationContext().getResources();
-        Bitmap bitmap = BitmapFactory.decodeResource(res, imageResource);
-        weatherImgView.setImageBitmap(bitmap);
-
-        // 天気情報の時間を表示する
-        Calendar weatherCalendar = Calendar.getInstance();
-        weatherCalendar.setTimeInMillis(weatherModel.getWeatherDt());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("M/d H:mm");
-        String weatherTime = simpleDateFormat.format(weatherCalendar.getTime());
-
-        String summaryText = weatherModel.getWeather();
-
-        // 天気情報の時間および天気概要を表示する
-        weatherSummary.setText(summaryText + " (" + weatherTime + ")");
-
-        maxView.setText(getText(R.string.max) + String.format("%1$.1f", weatherModel.getMaxTemp()) + "℃");
-        minView.setText(getText(R.string.min) + String.format("%1$.1f", weatherModel.getMinTemp()) + " ℃");
-    }
-
-    private void initClickListener() {
-        // SpotActivityを起動するClickリスナーを作成する
-        TextView statusView = (TextView) findViewById(R.id.status_text);
-        statusView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // インテントを生成する
-                Intent intent = new Intent(getApplication(), SpotActivity.class);
-                // SpotActivityを起動する
-                startActivity(intent);
-            }
-        });
-
-        // CalendarActivityを起動するClickリスナーを作成する
-        TextView calendarView = (TextView) findViewById(R.id.calendar_view);
-        calendarView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // インテントを生成する
-                Intent intent = new Intent(getApplication(), CalendarActivity.class);
-                // SpotActivityを起動する
-                startActivity(intent);
-            }
-
-        });
+        weatherModel.setWeather("");
     }
 
     private boolean checkNetEnable() {
@@ -260,43 +163,6 @@ public class MainActivity extends AppCompatActivity {
             return netInfo.isConnected();
         } else {
             return false;
-        }
-    }
-
-    private void initView(boolean netEna) {
-        LineChart lineChart = (LineChart) findViewById(R.id.chart);
-        TextView errText = (TextView) findViewById(R.id.error_text);
-
-        if (netEna) {
-            initTestData();
-            lineChart.setVisibility(View.VISIBLE);
-            errText.setVisibility(View.INVISIBLE);
-        } else {
-            initErrMsg();
-            lineChart.setVisibility(View.INVISIBLE);
-            errText.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private void initWeatherView(boolean weatherEna) {
-        TextView errText = (TextView) findViewById(R.id.errorWeather);
-        ImageView weatherIcon = (ImageView) findViewById(R.id.weatherIcon);
-        TextView weatherSummary = (TextView) findViewById(R.id.weatherSummary);
-        TextView maxTemp = (TextView) findViewById(R.id.maxView);
-        TextView minTemp = (TextView) findViewById(R.id.minView);
-
-        if (weatherEna) {
-            weatherIcon.setVisibility(View.VISIBLE);
-            weatherSummary.setVisibility(View.VISIBLE);
-            maxTemp.setVisibility(View.VISIBLE);
-            minTemp.setVisibility(View.VISIBLE);
-            errText.setVisibility(View.GONE);
-        } else {
-            weatherIcon.setVisibility(View.GONE);
-            weatherSummary.setVisibility(View.GONE);
-            maxTemp.setVisibility(View.GONE);
-            minTemp.setVisibility(View.GONE);
-            errText.setVisibility(View.VISIBLE);
         }
     }
 }
