@@ -13,6 +13,10 @@ public class WeatherModel {
     private String weather;
     private String icon;
     private long weatherDt;
+    private float speed;
+    private int deg;
+    private float pressure;
+    private String degDirection;
 
     /* constructor */
     private WeatherModel() {
@@ -64,6 +68,23 @@ public class WeatherModel {
     public long getWeatherDt() { return weatherDt; }
 
     public void setWeatherDt(long weatherDt) { this.weatherDt = weatherDt; }
+
+    public float getSpeed() { return speed; }
+
+    public void setSpeed(float speed) { this.speed = speed; }
+
+    public int getDeg() { return deg; }
+
+    public void setDeg(int deg) { this.deg = deg; }
+
+    public float getPressure() { return pressure; }
+
+    public void setPressure(float pressure) { this.pressure = pressure; }
+
+    public String getDegDirection() { return degDirection; }
+
+    public void setDegDirection(String degDirection) { this.degDirection = degDirection; }
+    public void setDegDirection(int deg) { this.degDirection = formatBearing(deg) + "の風"; }
 
     public static boolean enaGetWeatherInfo() {
         int difDay = getDifDay();
@@ -297,4 +318,20 @@ public class WeatherModel {
         }
         return jpWeather;
     }
-}
+
+    private String formatBearing(double bearing) {
+        if (bearing < 0 && bearing > -180) {
+            // Normalize to [0,360]
+            bearing = 360.0 + bearing;
+        }
+        if (bearing > 360 || bearing < -180) {
+            return "Unknown";
+        }
+
+        String directions[] = {
+                "北", "北北東", "北東", "北東北", "東", "東南東", "南東", "南南東",
+                "南", "南南西", "南西", "西南西", "西", "西北西", "西北", "北北西",
+                "北"};
+        String cardinal = directions[(int) Math.floor(((bearing + 11.25) % 360) / 22.5)];
+        return cardinal;
+    }}

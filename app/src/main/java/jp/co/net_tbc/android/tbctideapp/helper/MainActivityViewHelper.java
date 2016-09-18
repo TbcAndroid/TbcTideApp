@@ -84,7 +84,9 @@ public class MainActivityViewHelper {
         TextView weatherSummary = (TextView) activity.findViewById(R.id.weatherSummary);
         TextView maxView = (TextView) activity.findViewById(R.id.maxView);
         TextView minView = (TextView) activity.findViewById(R.id.minView);
-
+        TextView deg = (TextView) activity.findViewById(R.id.deg);
+        TextView speed = (TextView) activity.findViewById(R.id.speed);
+        TextView hp = (TextView) activity.findViewById(R.id.hp);
 
         String uri = "drawable/w" + weatherModel.getIcon();
         int imageResource = activity.getResources().getIdentifier(uri, null, activity.getPackageName());
@@ -105,6 +107,10 @@ public class MainActivityViewHelper {
 
         maxView.setText(activity.getText(R.string.max) + String.format("%1$.1f", weatherModel.getMaxTemp()) + " ℃");
         minView.setText(activity.getText(R.string.min) + String.format("%1$.1f", weatherModel.getMinTemp()) + " ℃");
+
+        deg.setText(weatherModel.getDegDirection());
+        speed.setText(String.format("%.1f", weatherModel.getSpeed()) + "m/s");
+        hp.setText(weatherModel.getPressure() + "hPa");
     }
 
     public void initView(boolean netEna) {
@@ -126,18 +132,27 @@ public class MainActivityViewHelper {
         TextView weatherSummary = (TextView) activity.findViewById(R.id.weatherSummary);
         TextView maxTemp = (TextView) activity.findViewById(R.id.maxView);
         TextView minTemp = (TextView) activity.findViewById(R.id.minView);
+        TextView deg = (TextView) activity.findViewById(R.id.deg);
+        TextView speed = (TextView) activity.findViewById(R.id.speed);
+        TextView hp = (TextView) activity.findViewById(R.id.hp);
 
         if (weatherEna) {
             weatherIcon.setVisibility(View.VISIBLE);
             weatherSummary.setVisibility(View.VISIBLE);
             maxTemp.setVisibility(View.VISIBLE);
             minTemp.setVisibility(View.VISIBLE);
+            deg.setVisibility(View.VISIBLE);
+            speed.setVisibility(View.VISIBLE);
+            hp.setVisibility(View.VISIBLE);
             errText.setVisibility(View.GONE);
         } else {
             weatherIcon.setVisibility(View.GONE);
             weatherSummary.setVisibility(View.GONE);
             maxTemp.setVisibility(View.GONE);
             minTemp.setVisibility(View.GONE);
+            deg.setVisibility(View.GONE);
+            speed.setVisibility(View.GONE);
+            hp.setVisibility(View.GONE);
             errText.setVisibility(View.VISIBLE);
         }
     }

@@ -9,7 +9,6 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:background="@color/colorPrimary">
@@ -36,7 +35,6 @@
                 <TextView
                     android:id="@+id/status_text"
                     android:layout_width="match_parent"
-
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -44,7 +42,6 @@
                     android:textColor="@android:color/white"
                     android:textSize="30dip"
                     android:textStyle="bold" />
-
             </LinearLayout>
 
             <TextView
@@ -69,7 +66,6 @@
                 android:layout_below="@+id/calendar_view"
                 android:layout_gravity="center" />
 
-
             <TextView
                 android:id="@+id/error_text"
                 android:layout_width="match_parent"
@@ -84,7 +80,6 @@
                 android:textSize="30dip"
                 android:textStyle="bold"
                 android:visibility="invisible" />
-
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
@@ -183,29 +178,70 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="@string/max"
                         android:textSize="20dip" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/maxView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="@string/max"
+                            android:textColor="@android:color/holo_red_dark"
+                            android:textSize="20dip" />
+
+                        <TextView
+                            android:id="@+id/minView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:paddingLeft="10dp"
+                            android:text="@string/min"
+                            android:textColor="@android:color/holo_blue_dark"
+                            android:textSize="20dip" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/deg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="@string/max"
+                            android:textSize="20dip" />
+
+                        <TextView
+                            android:id="@+id/speed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:paddingLeft="10dp"
+                            android:text="@string/min"
+                            android:textSize="20dip" />
+                    </LinearLayout>
+
                     <TextView
-                        android:id="@+id/maxView"
+                        android:id="@+id/hp"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="@string/max"
-                        android:textColor="@android:color/holo_red_dark"
+                        android:text=""
                         android:textSize="20dip" />
-
-                    <TextView
-                        android:id="@+id/minView"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/min"
-                        android:textColor="@android:color/holo_blue_dark"
-                        android:textSize="20dip" />
-
 
                     <TextView
                         android:id="@+id/errorWeather"

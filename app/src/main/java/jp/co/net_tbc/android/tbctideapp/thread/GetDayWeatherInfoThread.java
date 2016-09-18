@@ -58,5 +58,9 @@ public class GetDayWeatherInfoThread implements Runnable {
 
         // set Millis
         weatherModel.setWeatherDt(jsonNode.path("list").get(difDay).path("dt").longValue() * 1000);
+        weatherModel.setSpeed(jsonNode.path("list").get(difDay).path("speed").floatValue());
+        weatherModel.setDeg(jsonNode.path("list").get(difDay).path("deg").intValue());
+        weatherModel.setDegDirection(weatherModel.getDeg());
+        weatherModel.setPressure(jsonNode.path("list").get(difDay).path("pressure").floatValue());
     }
 }
