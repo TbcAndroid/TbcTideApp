@@ -1,18 +1,21 @@
 package jp.co.net_tbc.android.tbctideapp.model;
 
+import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by Kenji Nagai on 2016/08/06.
  */
-public class FishStarModel {
+public class FishStarModel implements Serializable {
     private static final FishStarModel fishStarModel = new FishStarModel();
-    private String sunriseTime;
-    private String sunsetTime;
-    private String moonriseTime;
-    private String moonsetTime;
-    private String tideName;
-    private List<TideTailModel> tideTails;
+    private static final long serialVersionUID = 561472575341079847L;
+    private String sunriseTime = "0:00";
+    private String sunsetTime = "0:00";
+    private String moonriseTime = "0:00";
+    private String moonsetTime = "0:00";
+    private String tideName = "";
+    private List<TideTailModel> tideTails = Arrays.asList(new TideTailModel("1:00", 1), new TideTailModel("2:00", 2), new TideTailModel("3:00", 3), new TideTailModel("4:00", 4));
 
     private FishStarModel() {
     }

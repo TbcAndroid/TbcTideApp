@@ -1,30 +1,37 @@
 package jp.co.net_tbc.android.tbctideapp.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  * Created by Kenji Nagai on 2016/08/06.
  */
-public class WeatherModel {
-    private final static WeatherModel weatherModel = new WeatherModel();
-    private int id;
-    private float minTemp;
-    private float maxTemp;
-    private String weather;
-    private String icon;
+public class WeatherModel implements Serializable {
+    private static WeatherModel weatherModel = new WeatherModel();
+    public static final int INIT_DATA = 0;
+    private static final long serialVersionUID = 6604895831662062981L;
+    private int id = INIT_DATA;
+    private float minTemp = 0;
+    private float maxTemp = 0;
+    private String weather = "晴れ";
+    private String icon = "01d";
     private long weatherDt;
-    private float speed;
-    private int deg;
-    private float pressure;
-    private String degDirection;
+    private float speed = 0;
+    private int deg = 0;
+    private float pressure = 0;
+    private String degDirection = "";
 
     /* constructor */
-    private WeatherModel() {
+    public WeatherModel() {
     }
 
     /* Singleton */
     public static WeatherModel getInstance() {
         return weatherModel;
+    }
+
+    public static void setWeatherModel(WeatherModel weatherModel) {
+        WeatherModel.weatherModel = weatherModel;
     }
 
     public int getId() {
@@ -51,11 +58,17 @@ public class WeatherModel {
         this.maxTemp = maxTemp;
     }
 
-    public String getWeather() { return weather; }
+    public String getWeather() {
+        return weather;
+    }
 
-    public void setWeather(String weather) { this.weather = weather; }
+    public void setWeather(String weather) {
+        this.weather = weather;
+    }
 
-    public void setWeather(int id) { this.weather = getWeatherDesciption(id); }
+    public void setWeather(int id) {
+        this.weather = getWeatherDesciption(id);
+    }
 
     public String getIcon() {
         return icon;
@@ -65,31 +78,55 @@ public class WeatherModel {
         this.icon = icon;
     }
 
-    public long getWeatherDt() { return weatherDt; }
+    public long getWeatherDt() {
+        return weatherDt;
+    }
 
-    public void setWeatherDt(long weatherDt) { this.weatherDt = weatherDt; }
+    public void setWeatherDt(long weatherDt) {
+        this.weatherDt = weatherDt;
+    }
 
-    public float getSpeed() { return speed; }
+    public float getSpeed() {
+        return speed;
+    }
 
-    public void setSpeed(float speed) { this.speed = speed; }
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
 
-    public int getDeg() { return deg; }
+    public int getDeg() {
+        return deg;
+    }
 
-    public void setDeg(int deg) { this.deg = deg; }
+    public void setDeg(int deg) {
+        this.deg = deg;
+    }
 
-    public float getPressure() { return pressure; }
+    public float getPressure() {
+        return pressure;
+    }
 
-    public void setPressure(float pressure) { this.pressure = pressure; }
+    public void setPressure(float pressure) {
+        this.pressure = pressure;
+    }
 
-    public String getDegDirection() { return degDirection; }
+    public String getDegDirection() {
+        return degDirection;
+    }
 
-    public void setDegDirection(String degDirection) { this.degDirection = degDirection; }
-    public void setDegDirection(int deg) { this.degDirection = formatBearing(deg) + "の風"; }
+    public void setDegDirection(String degDirection) {
+        this.degDirection = degDirection;
+    }
 
-    public static boolean enaGetWeatherInfo() {
+    public void setDegDirection(int deg) {
+        this.degDirection = formatBearing(deg) + "の風";
+    }
+
+    public static boolean canGetWeatherInfo() {
         int difDay = getDifDay();
+        int minDay = 0;
         int maxDay = 6;
-        if (difDay <= 6 && difDay >= 0) {
+        if (difDay <= maxDay && difDay >= minDay) {
             return true;
         } else {
             return false;
@@ -334,4 +371,9 @@ public class WeatherModel {
                 "北"};
         String cardinal = directions[(int) Math.floor(((bearing + 11.25) % 360) / 22.5)];
         return cardinal;
-    }}
+    }
+
+    public boolean needInit() {
+        return id == INIT_DATA;
+    }
+}

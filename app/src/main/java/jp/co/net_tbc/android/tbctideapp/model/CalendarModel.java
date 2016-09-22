@@ -1,19 +1,27 @@
 package jp.co.net_tbc.android.tbctideapp.model;
 
+import java.io.Serializable;
+import java.util.Calendar;
+
 /**
  * Created by Kenji Nagai on 2016/08/06.
  */
-public class CalendarModel {
+public class CalendarModel implements Serializable {
     private static final CalendarModel calendarModel = new CalendarModel();
+    private static final long serialVersionUID = -6207986572276046824L;
     int year;
     int month;
     int day;
-    String dayOfWeek;
+    String dayOfWeek = "金曜日";
 
     /**
      * constructor.
      */
     private CalendarModel() {
+        Calendar calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH) + 1;
+        day = calendar.get(Calendar.DAY_OF_MONTH);
     }
 
     /* singleton pattern*/

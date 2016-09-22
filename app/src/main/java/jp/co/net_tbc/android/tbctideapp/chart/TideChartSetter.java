@@ -1,7 +1,6 @@
 package jp.co.net_tbc.android.tbctideapp.chart;
 
 import android.content.Context;
-import android.content.res.Resources;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -94,7 +93,7 @@ public class TideChartSetter {
         //start 0:00
         labels.add("0:00");
 
-        for(TideTailModel tideTailModel : tideTailModelList){
+        for (TideTailModel tideTailModel : tideTailModelList) {
             labels.add(tideTailModel.getTideTime());
         }
 
@@ -104,9 +103,9 @@ public class TideChartSetter {
         return labels;
     }
 
-    private int getAryAve(List<TideTailModel> tideTailModelList){
+    private int getAryAve(List<TideTailModel> tideTailModelList) {
         int sum = 0;
-        for( TideTailModel tideTailModel : tideTailModelList){
+        for (TideTailModel tideTailModel : tideTailModelList) {
             sum += tideTailModel.getTideLevel();
         }
         // return ave

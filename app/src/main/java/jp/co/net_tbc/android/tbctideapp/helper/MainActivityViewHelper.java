@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.LineChart;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -113,15 +111,12 @@ public class MainActivityViewHelper {
         hp.setText(weatherModel.getPressure() + "hPa");
     }
 
-    public void initView(boolean netEna) {
-        LineChart lineChart = (LineChart) activity.findViewById(R.id.chart);
+    public void initErrorView(boolean netEna) {
         TextView errText = (TextView) activity.findViewById(R.id.error_text);
 
         if (netEna) {
-            lineChart.setVisibility(View.VISIBLE);
             errText.setVisibility(View.INVISIBLE);
         } else {
-            lineChart.setVisibility(View.INVISIBLE);
             errText.setVisibility(View.VISIBLE);
         }
     }

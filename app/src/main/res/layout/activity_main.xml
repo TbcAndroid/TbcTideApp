@@ -68,16 +68,16 @@
 
             <TextView
                 android:id="@+id/error_text"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/calendar_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/calendar_view"
                 android:layout_gravity="center"
+                android:layout_toRightOf="@+id/calendar_view"
                 android:gravity="center"
-                android:text="ネットワークを\n使用できません"
+                android:padding="10dp"
+                android:text="ネットワークを使用できません"
                 android:textColor="@android:color/holo_red_dark"
-                android:textSize="30dip"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 android:visibility="invisible" />
 

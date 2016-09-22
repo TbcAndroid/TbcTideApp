@@ -20,10 +20,10 @@ public class ApiClient {
             URL weatherUrl = new URL(url);
             HttpURLConnection con = (HttpURLConnection) weatherUrl.openConnection();
             str = InputStreamToString(con.getInputStream());
+            Log.d("Response data", str);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.d("Response data", str);
         return str;
     }
 
