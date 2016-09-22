@@ -10,7 +10,7 @@ import com.github.mikephil.charting.charts.LineChart;
 
 import jp.co.net_tbc.android.tbctideapp.R;
 import jp.co.net_tbc.android.tbctideapp.chart.TideChartSetter;
-import jp.co.net_tbc.android.tbctideapp.data.ModelData;
+import jp.co.net_tbc.android.tbctideapp.db.ModelData;
 import jp.co.net_tbc.android.tbctideapp.helper.MainActivityViewHelper;
 import jp.co.net_tbc.android.tbctideapp.model.FishStarModel;
 import jp.co.net_tbc.android.tbctideapp.model.WeatherModel;
