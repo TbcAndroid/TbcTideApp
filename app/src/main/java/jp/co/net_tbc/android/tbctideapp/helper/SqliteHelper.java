@@ -49,7 +49,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
         super(context, dbName, null, dbVer);
     }
 
-    private List<?> modelList = Arrays.asList(WeatherModel.getInstance(), CalendarModel.getInstance(), FishStarModel.getInstance(), SpotModel.getInstance());
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -73,6 +72,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
         ObjectOutputStream oos = null;
         ByteArrayOutputStream baos = null;
+
+        List<?> modelList = Arrays.asList(WeatherModel.getInstance(), CalendarModel.getInstance(), FishStarModel.getInstance(), SpotModel.getInstance());
 
         for(Object model: modelList){
             try {
