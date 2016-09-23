@@ -95,16 +95,16 @@ public class MainActivityViewHelper {
         // 天気情報の時間を表示する
         Calendar weatherCalendar = Calendar.getInstance();
         weatherCalendar.setTimeInMillis(weatherModel.getWeatherDt());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("M/d H:mm");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("M/d H時");
         String weatherTime = simpleDateFormat.format(weatherCalendar.getTime());
 
         String summaryText = weatherModel.getWeather();
 
         // 天気情報の時間および天気概要を表示する
-        weatherSummary.setText(summaryText + " (" + weatherTime + ")");
+        weatherSummary.setText(summaryText + " " + weatherTime);
 
-        maxView.setText(activity.getText(R.string.max) + String.format("%1$.1f", weatherModel.getMaxTemp()) + " ℃");
-        minView.setText(activity.getText(R.string.min) + String.format("%1$.1f", weatherModel.getMinTemp()) + " ℃");
+        maxView.setText(String.format("%1$.1f", weatherModel.getMaxTemp()) + " ℃");
+        minView.setText(String.format("%1$.1f", weatherModel.getMinTemp()) + " ℃");
 
         deg.setText(weatherModel.getDegDirection());
         speed.setText(String.format("%.1f", weatherModel.getSpeed()) + "m/s");
