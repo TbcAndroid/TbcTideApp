@@ -9,11 +9,8 @@ import android.provider.BaseColumns;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 import java.util.List;
@@ -31,9 +28,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
     /* Inner class that defines the table contents */
     public static abstract class FeedEntry implements BaseColumns {
         public static final String TABLE_NAME = "Model";
-        public static final String COLUMN_NAME_ENTRY_ID = "entryid";
-        public static final String COLUMN_NAME_TITLE = "title";
-        public static final String COLUMN_NAME_SUBTITLE = "subtitle";
     }
 
     private static final String TEXT_TYPE = " TEXT";
@@ -56,7 +50,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
     }
 
     private List<?> modelList = Arrays.asList(WeatherModel.getInstance(), CalendarModel.getInstance(), FishStarModel.getInstance(), SpotModel.getInstance());
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -87,7 +80,9 @@ public class SqliteHelper extends SQLiteOpenHelper {
                 oos = new ObjectOutputStream(baos);
                 oos.writeObject(model);
 
+                values.put(FeedEntry._ID, 1);
                 values.put(model.getClass().getSimpleName(), baos.toByteArray());
+
                 baos.close();
                 oos.close();
             } catch (IOException e) {
@@ -118,23 +113,46 @@ public class SqliteHelper extends SQLiteOpenHelper {
                 null,                                     // don't filter by row groups
                 null                                 // The sort order
         );
+
+        WeatherModel weatherModel = (WeatherModel) getDeserializeObject(c, WeatherModel.class.getSimpleName());
+        CalendarModel calendarModel = (CalendarModel) getDeserializeObject(c, CalendarModel.class.getSimpleName());
+        FishStarModel fishStarModel = (FishStarModel) getDeserializeObject(c, FishStarModel.class.getSimpleName());
+        SpotModel spotModel = (SpotModel) getDeserializeObject(c, SpotModel.class.getSimpleName());
+
+        // TODO RVお願いします
+        // インスタンスを入れていいのかよくわからない
+        if(weatherModel != null) {
+            WeatherModel.setInstance(weatherModel);
+        }
+        if(calendarModel != null) {
+            CalendarModel.setInstance(calendarModel);
+        }
+        if(fishStarModel != null) {
+            FishStarModel.setInstance(fishStarModel);
+        }
+        if(spotModel != null) {
+            SpotModel.setInstance(spotModel);
+        }
+    }
+
+    private Object getDeserializeObject(Cursor c, String coloumnName){
         int num = c.getColumnCount();
         int numCount = c.getCount();
-        int index = c.getColumnIndex(projection[0]);
+        int index = c.getColumnIndex(coloumnName);
+        Object objModel = null;
+
         c.moveToFirst();
         if(index != -1 && c.getCount() != 0 && !c.isNull(index)){
             try {
-//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                ObjectOutputStream oos = new ObjectOutputStream(baos);
-//                oos.writeObject(c.getBlob(index));
                 ByteArrayInputStream bais = new ByteArrayInputStream(c.getBlob(index));
                 ObjectInputStream ois = new ObjectInputStream(bais);
-                WeatherModel weatherModel = (WeatherModel) ois.readObject();
-
-            } catch (IOException | ClassNotFoundException e) {
+                objModel =  ois.readObject();
+                bais.close();
+                ois.close();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
+        return objModel;
     }
 }

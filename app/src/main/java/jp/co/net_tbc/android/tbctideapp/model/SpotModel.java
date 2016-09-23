@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by Kenji Nagai on 2016/08/06.
  */
 public class SpotModel implements Serializable {
-    private static final SpotModel spotModel = new SpotModel();
+    private static SpotModel spotModel = new SpotModel();
     private static final long serialVersionUID = -7464734216639422538L;
     private int portId = 0;
     private String portName = "大阪";
@@ -21,6 +21,8 @@ public class SpotModel implements Serializable {
     private SpotModel() { }
 
     public static SpotModel getInstance() { return spotModel; }
+
+    public static void setInstance(SpotModel spotModel){ SpotModel.spotModel = spotModel;}
 
     public int getPortId() { return portId; }
 

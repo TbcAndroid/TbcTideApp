@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // MainAcitivityからViewの操作を切り分けたクラスをニューする
+        // MainActivityからViewの操作を切り分けたクラスをニューする
         mainActivityViewHelper = new MainActivityViewHelper(this);
 
         // ClickListenerを初期化する
@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         modelData.restoreModels();
-
     }
 
     @Override

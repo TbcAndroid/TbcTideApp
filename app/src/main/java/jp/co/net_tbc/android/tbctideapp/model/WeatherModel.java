@@ -22,7 +22,7 @@ public class WeatherModel implements Serializable {
     private String degDirection = "";
 
     /* constructor */
-    public WeatherModel() {
+    private WeatherModel() {
     }
 
     /* Singleton */
@@ -30,9 +30,7 @@ public class WeatherModel implements Serializable {
         return weatherModel;
     }
 
-    public static void setWeatherModel(WeatherModel weatherModel) {
-        WeatherModel.weatherModel = weatherModel;
-    }
+    public static void setInstance(WeatherModel weatherModel) { WeatherModel.weatherModel = weatherModel; }
 
     public int getId() {
         return id;

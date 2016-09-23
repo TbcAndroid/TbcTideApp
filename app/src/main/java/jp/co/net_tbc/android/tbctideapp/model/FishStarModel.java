@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Kenji Nagai on 2016/08/06.
  */
 public class FishStarModel implements Serializable {
-    private static final FishStarModel fishStarModel = new FishStarModel();
+    private static FishStarModel fishStarModel = new FishStarModel();
     private static final long serialVersionUID = 561472575341079847L;
     private String sunriseTime = "0:00";
     private String sunsetTime = "0:00";
@@ -23,6 +23,8 @@ public class FishStarModel implements Serializable {
     public static FishStarModel getInstance() {
         return fishStarModel;
     }
+
+    public static void setInstance(FishStarModel fishStarModel){ FishStarModel.fishStarModel = fishStarModel;}
 
     public String getSunriseTime() {
         return sunriseTime;

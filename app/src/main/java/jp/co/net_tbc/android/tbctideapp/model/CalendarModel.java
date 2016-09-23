@@ -7,7 +7,7 @@ import java.util.Calendar;
  * Created by Kenji Nagai on 2016/08/06.
  */
 public class CalendarModel implements Serializable {
-    private static final CalendarModel calendarModel = new CalendarModel();
+    private static CalendarModel calendarModel = new CalendarModel();
     private static final long serialVersionUID = -6207986572276046824L;
     int year;
     int month;
@@ -28,6 +28,7 @@ public class CalendarModel implements Serializable {
     public static CalendarModel getInstance() {
         return calendarModel;
     }
+    public static void setInstance(CalendarModel calendarModel){ CalendarModel.calendarModel = calendarModel;};
 
     public int getYear() {
         return year;
