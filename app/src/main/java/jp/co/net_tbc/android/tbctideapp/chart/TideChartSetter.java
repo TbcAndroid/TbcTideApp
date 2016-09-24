@@ -91,14 +91,14 @@ public class TideChartSetter {
         List<TideTailModel> tideTailModelList = fishStarModel.getTideTails();
 
         //start 0:00
-        labels.add("0:00");
+        labels.add("");
 
         for (TideTailModel tideTailModel : tideTailModelList) {
             labels.add(tideTailModel.getTideTime());
         }
 
         //end 24:00
-        labels.add("24:00");
+        labels.add("");
 
         return labels;
     }
