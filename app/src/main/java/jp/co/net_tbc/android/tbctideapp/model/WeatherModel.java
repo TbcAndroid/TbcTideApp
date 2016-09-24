@@ -30,7 +30,20 @@ public class WeatherModel implements Serializable {
         return weatherModel;
     }
 
-    public static void setInstance(WeatherModel weatherModel) { WeatherModel.weatherModel = weatherModel; }
+    public void setWeatherModel(WeatherModel weatherModel) {
+        if(weatherModel != null){
+            setId(weatherModel.getId());
+            setMinTemp(weatherModel.getMinTemp());
+            setMaxTemp(weatherModel.getMaxTemp());
+            setWeather(weatherModel.getId());
+            setIcon(weatherModel.getIcon());
+            setWeatherDt(weatherModel.getWeatherDt());
+            setSpeed(weatherModel.getSpeed());
+            setDeg(weatherModel.getDeg());
+            setPressure(weatherModel.getPressure());
+            setDegDirection(weatherModel.getDegDirection());
+        }
+    }
 
     public int getId() {
         return id;

@@ -22,7 +22,14 @@ public class SpotModel implements Serializable {
 
     public static SpotModel getInstance() { return spotModel; }
 
-    public static void setInstance(SpotModel spotModel){ SpotModel.spotModel = spotModel;}
+    public void setSpotModel(SpotModel spotModel){
+        if(spotModel != null){
+            setPortId(spotModel.getPortId());
+            setPortName(spotModel.getPortName());
+            setLatitude(spotModel.getLatitude());
+            setLongitude(spotModel.getLongitude());
+        }
+    }
 
     public int getPortId() { return portId; }
 

@@ -123,16 +123,16 @@ public class SqliteHelper extends SQLiteOpenHelper {
         // TODO RVお願いします
         // インスタンスを入れていいのかよくわからない
         if(weatherModel != null) {
-            WeatherModel.setInstance(weatherModel);
+            WeatherModel.getInstance().setWeatherModel(weatherModel);
         }
         if(calendarModel != null) {
-            CalendarModel.setInstance(calendarModel);
+            CalendarModel.getInstance().setCalendarModel(calendarModel);
         }
         if(fishStarModel != null) {
-            FishStarModel.setInstance(fishStarModel);
+            FishStarModel.getInstance().setFishStarModel(fishStarModel);
         }
         if(spotModel != null) {
-            SpotModel.setInstance(spotModel);
+            SpotModel.getInstance().setSpotModel(spotModel);
         }
     }
 

@@ -24,7 +24,16 @@ public class FishStarModel implements Serializable {
         return fishStarModel;
     }
 
-    public static void setInstance(FishStarModel fishStarModel){ FishStarModel.fishStarModel = fishStarModel;}
+    public void setFishStarModel(FishStarModel fishStarModel){
+        if(fishStarModel != null){
+            setSunriseTime(fishStarModel.getSunriseTime());
+            setSunsetTime(fishStarModel.getSunsetTime());
+            setMoonriseTime(fishStarModel.getMoonriseTime());
+            setMoonsetTime(fishStarModel.getMoonsetTime());
+            setTideName(fishStarModel.getTideName());
+            setTideTails(fishStarModel.getTideTails());
+        }
+    }
 
     public String getSunriseTime() {
         return sunriseTime;

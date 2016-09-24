@@ -28,7 +28,15 @@ public class CalendarModel implements Serializable {
     public static CalendarModel getInstance() {
         return calendarModel;
     }
-    public static void setInstance(CalendarModel calendarModel){ CalendarModel.calendarModel = calendarModel;};
+
+    public void setCalendarModel(CalendarModel calendarModel){
+        if(calendarModel != null){
+            setYear(calendarModel.getYear());
+            setMonth(calendarModel.getMonth());
+            setDay(calendarModel.getDay());
+            setDayOfWeek(calendarModel.getDayOfWeek());
+        }
+    };
 
     public int getYear() {
         return year;
