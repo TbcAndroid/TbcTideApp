@@ -53,7 +53,7 @@ public class GetDayWeatherInfoThread implements Runnable {
         float maxKerbin = jsonNode.path("list").get(difDay).path("temp").path("max").floatValue();
         weatherModel.setMaxTemp(maxKerbin - toCelcius);
 
-        String icon = jsonNode.path("list").get(difDay).path("weather").get(difDay).get("icon").toString().replace("\"", "");
+        String icon = jsonNode.path("list").get(difDay).path("weather").get(0).get("icon").toString().replace("\"", "");
         weatherModel.setIcon(icon.replaceFirst("n", "d"));
 
         // set Millis
