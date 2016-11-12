@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Created by Kenji Nagai on 2016/08/06.
  */
-@XStreamAlias("tideinfo")
 public class FishStarModel implements Serializable {
     @XStreamOmitField
     private static FishStarModel fishStarModel = new FishStarModel();
@@ -25,12 +24,8 @@ public class FishStarModel implements Serializable {
     private String moonriseTime = "0:00";
     private String moonsetTime = "0:00";
     private String tideName = "";
-
     private List<TidedetailModel> tidedetails = Arrays.asList(new TidedetailModel("1:00", "1"), new TidedetailModel("2:00", "2"), new TidedetailModel("3:00", "3"), new TidedetailModel("4:00", "4"));
-
     private double latitude = 0.0;
-
-    @XStreamAlias("longitude2")
     private double longitude = 0.0;
 
     private FishStarModel() {
