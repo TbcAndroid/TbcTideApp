@@ -120,8 +120,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
         FishStarModel fishStarModel = (FishStarModel) getDeserializeObject(c, FishStarModel.class.getSimpleName());
         SpotModel spotModel = (SpotModel) getDeserializeObject(c, SpotModel.class.getSimpleName());
 
-        // TODO RVお願いします
-        // インスタンスを入れていいのかよくわからない
         if(weatherModel != null) {
             WeatherModel.getInstance().setWeatherModel(weatherModel);
         }

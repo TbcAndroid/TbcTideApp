@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
 import jp.co.net_tbc.android.tbctideapp.helper.ApiClient;
+import jp.co.net_tbc.android.tbctideapp.model.FishStarModel;
 import jp.co.net_tbc.android.tbctideapp.model.SpotModel;
 import jp.co.net_tbc.android.tbctideapp.model.WeatherModel;
 
@@ -19,8 +20,8 @@ public class GetDayWeatherInfoThread implements Runnable {
 
     @Override
     public void run() {
-        double lat = SpotModel.getInstance().getLatitude();
-        double lng = SpotModel.getInstance().getLongitude();
+        double lat = FishStarModel.getInstance().getLatitude();
+        double lng = FishStarModel.getInstance().getLongitude();
         //create client
         String weatherUrlStr = GET_DAY_URL + "?appid=" + WEATHER_APPID + "&lat=" + String.valueOf(lat) + "&lon=" + String.valueOf(lng);
 

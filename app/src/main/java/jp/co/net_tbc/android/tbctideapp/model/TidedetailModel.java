@@ -5,31 +5,27 @@ import java.io.Serializable;
 /**
  * Created by Kenji Nagai on 2016/08/06.
  */
-public class TideTailModel implements Serializable {
+public class TidedetailModel implements Serializable {
     private static final long serialVersionUID = 4090083565605781655L;
     private String tideTime;
-    private int tideLevel;
+    private String tideLevel;
 
-    public TideTailModel() { }
+    public TidedetailModel() { }
 
-    public TideTailModel(String tideTime, int tideLevel) {
+    public TidedetailModel(String tideTime, String tideLevel) {
         this.tideTime = tideTime;
         this.tideLevel = tideLevel;
     }
 
-    public String getTideTime() {
-        return tideTime;
-    }
+    public String getTideTime() { return tideTime; }
 
     public void setTideTime(String tideTime) {
         this.tideTime = tideTime;
     }
 
-    public int getTideLevel() {
-        return tideLevel;
-    }
+    public String getTideLevel() { return tideLevel; }
 
-    public void setTideLevel(int tideLevel) {
+    public void setTideLevel(String tideLevel) {
         this.tideLevel = tideLevel;
     }
 }

@@ -7,6 +7,79 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimary"
     tools:context="jp.co.net_tbc.android.tbctideapp.activity.SpotActivity">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            android:background="#fff"
+            android:layout_weight="1"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="県名"
+                android:id="@+id/textPrefecture"
+                android:textColor="@android:color/white"
+                android:background="@color/colorPrimary"
+                android:layout_gravity="center"
+                android:gravity="center" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/spinner_prefecture"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:spinnerMode="dialog"
+                android:background="#fff"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            android:background="#fff"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="港名"
+                android:id="@+id/textPort"
+                android:textColor="@android:color/white"
+                android:background="@color/colorPrimary"
+                android:layout_gravity="center"
+                android:gravity="center" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/spinner_spot"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:spinnerMode="dialog"
+                android:background="#fff"
+                android:orientation="vertical"
+                android:layout_gravity="center" />
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>

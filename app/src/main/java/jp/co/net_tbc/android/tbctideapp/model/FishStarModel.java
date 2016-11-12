@@ -1,21 +1,37 @@
 package jp.co.net_tbc.android.tbctideapp.model;
 
+
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by Kenji Nagai on 2016/08/06.
  */
+@XStreamAlias("tideinfo")
 public class FishStarModel implements Serializable {
+    @XStreamOmitField
     private static FishStarModel fishStarModel = new FishStarModel();
+
+    @XStreamOmitField
     private static final long serialVersionUID = 561472575341079847L;
+
     private String sunriseTime = "0:00";
     private String sunsetTime = "0:00";
     private String moonriseTime = "0:00";
     private String moonsetTime = "0:00";
     private String tideName = "";
-    private List<TideTailModel> tideTails = Arrays.asList(new TideTailModel("1:00", 1), new TideTailModel("2:00", 2), new TideTailModel("3:00", 3), new TideTailModel("4:00", 4));
+
+    private List<TidedetailModel> tidedetails = Arrays.asList(new TidedetailModel("1:00", "1"), new TidedetailModel("2:00", "2"), new TidedetailModel("3:00", "3"), new TidedetailModel("4:00", "4"));
+
+    private double latitude = 0.0;
+
+    @XStreamAlias("longitude2")
+    private double longitude = 0.0;
 
     private FishStarModel() {
     }
@@ -31,7 +47,7 @@ public class FishStarModel implements Serializable {
             setMoonriseTime(fishStarModel.getMoonriseTime());
             setMoonsetTime(fishStarModel.getMoonsetTime());
             setTideName(fishStarModel.getTideName());
-            setTideTails(fishStarModel.getTideTails());
+            setTidedetails(fishStarModel.getTidedetails());
         }
     }
 
@@ -75,11 +91,25 @@ public class FishStarModel implements Serializable {
         this.tideName = tideName;
     }
 
-    public List<TideTailModel> getTideTails() {
-        return tideTails;
+    public List<TidedetailModel> getTidedetails() {
+        return tidedetails;
     }
 
-    public void setTideTails(List<TideTailModel> tideTails) {
-        this.tideTails = tideTails;
+    public void setTidedetails(List<TidedetailModel> tidedetails) {
+        List<TidedetailModel> addList = new ArrayList<TidedetailModel>();
+        for(TidedetailModel addModel: tidedetails){
+            if(!addModel.getTideLevel().isEmpty() && !addModel.getTideTime().isEmpty()){
+                addList.add(addModel);
+            }
+        }
+        this.tidedetails = addList;
     }
+
+    public double getLatitude() { return latitude; }
+
+    public void setLatitude(double latitude) { this.latitude = latitude; }
+
+    public double getLongitude() { return longitude; }
+
+    public void setLongitude(double longitude) { this.longitude = longitude; }
 }

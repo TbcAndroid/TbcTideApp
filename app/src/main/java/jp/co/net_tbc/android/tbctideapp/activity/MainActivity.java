@@ -14,6 +14,7 @@ import jp.co.net_tbc.android.tbctideapp.db.ModelData;
 import jp.co.net_tbc.android.tbctideapp.helper.MainActivityViewHelper;
 import jp.co.net_tbc.android.tbctideapp.model.FishStarModel;
 import jp.co.net_tbc.android.tbctideapp.model.WeatherModel;
+import jp.co.net_tbc.android.tbctideapp.thread.FishStarThread;
 import jp.co.net_tbc.android.tbctideapp.thread.GetDayWeatherInfoThread;
 
 public class MainActivity extends AppCompatActivity {
@@ -55,12 +56,20 @@ public class MainActivity extends AppCompatActivity {
         mainActivityViewHelper.initWeatherView(weatherGetEnable);
 
         // Internetを利用可能かつ天気情報を取得できる日付の場合、天気情報を取得する
+        // FishStarから潮汐情報を取得する
         if (netEnable && weatherGetEnable) {
             GetDayWeatherInfoThread getDayWeatherInfoThread = new GetDayWeatherInfoThread();
             Thread weatherThread = new Thread(getDayWeatherInfoThread);
-            weatherThread.start();
+            FishStarThread fs = new FishStarThread();
+            Thread fishStarThread = new Thread(fs);
             try {
-                weatherThread.join(10000);
+                // FishStarのREST API呼び出す
+                fishStarThread.start();
+                fishStarThread.join(5000);
+
+                // FishStarから受け取った位置情報を使うため、FishStar呼出し後、天気情報は取得できるREST APIを呼び出す
+                weatherThread.start();
+                weatherThread.join(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 mainActivityViewHelper.initWeatherView(false);
@@ -86,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
         // モデルを保存する
         // TODO 保存するタイミングがここでいいかは不明
         modelData.replaceModels();

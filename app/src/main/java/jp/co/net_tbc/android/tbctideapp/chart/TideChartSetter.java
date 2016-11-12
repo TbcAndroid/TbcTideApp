@@ -14,7 +14,7 @@ import java.util.List;
 
 import jp.co.net_tbc.android.tbctideapp.R;
 import jp.co.net_tbc.android.tbctideapp.model.FishStarModel;
-import jp.co.net_tbc.android.tbctideapp.model.TideTailModel;
+import jp.co.net_tbc.android.tbctideapp.model.TidedetailModel;
 
 /**
  * Created by Kenji Nagai on 2016/08/07.
@@ -67,8 +67,8 @@ public class TideChartSetter {
 
     private ArrayList<Entry> getEntry() {
         ArrayList<Entry> entries = new ArrayList<>();
-        List<TideTailModel> tideTailModelList = fishStarModel.getTideTails();
-        int aveTideLevel = getAryAve(tideTailModelList);
+        List<TidedetailModel> tidedetailModelList = fishStarModel.getTidedetails();
+        int aveTideLevel = getAryAve(tidedetailModelList);
 
         // fist y:Average
         entries.add(new Entry(Float.valueOf(aveTideLevel), 0));
@@ -76,8 +76,8 @@ public class TideChartSetter {
 
         int firstIterator = 0;
         int i = 0;
-        for (; i < tideTailModelList.size(); i++) {
-            entries.add(new Entry(Float.valueOf(tideTailModelList.get(i).getTideLevel()), i + firstCount));
+        for (; i < tidedetailModelList.size(); i++) {
+            entries.add(new Entry(Float.valueOf(tidedetailModelList.get(i).getTideLevel()), i + firstCount));
         }
 
         // last y:Average Tide Level
@@ -88,13 +88,13 @@ public class TideChartSetter {
 
     private ArrayList<String> getLabel() {
         ArrayList<String> labels = new ArrayList<>();
-        List<TideTailModel> tideTailModelList = fishStarModel.getTideTails();
+        List<TidedetailModel> tidedetailModelList = fishStarModel.getTidedetails();
 
         //start 0:00
         labels.add("");
 
-        for (TideTailModel tideTailModel : tideTailModelList) {
-            labels.add(tideTailModel.getTideTime());
+        for (TidedetailModel tidedetailModel : tidedetailModelList) {
+            labels.add(tidedetailModel.getTideTime());
         }
 
         //end 24:00
@@ -103,12 +103,12 @@ public class TideChartSetter {
         return labels;
     }
 
-    private int getAryAve(List<TideTailModel> tideTailModelList) {
+    private int getAryAve(List<TidedetailModel> tidedetailModelList) {
         int sum = 0;
-        for (TideTailModel tideTailModel : tideTailModelList) {
-            sum += tideTailModel.getTideLevel();
+        for (TidedetailModel tidedetailModel : tidedetailModelList) {
+            sum += Integer.valueOf(tidedetailModel.getTideLevel());
         }
         // return ave
-        return sum / tideTailModelList.size();
+        return sum / tidedetailModelList.size();
     }
 }
