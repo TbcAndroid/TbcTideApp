@@ -52,6 +52,8 @@ public class TideChartSetter {
         // Y軸の軸名の大きさを設定する
         Legend legend = mChart.getLegend();
         legend.setTextSize(textSize);
+        legend.setPosition(Legend.LegendPosition.ABOVE_CHART_LEFT);
+        legend.setFormSize(textSize);
     }
 
     private void initChart(LineChart mChart) {

@@ -25,10 +25,10 @@
             android:background="@android:color/background_light"
             tools:context=".activity.MainActivity">
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/status_view"
                 android:layout_width="match_parent"
-                android:layout_height="70dip"
+                android:layout_height="50dip"
                 android:background="@color/colorPrimary"
                 android:orientation="vertical">
 
@@ -42,7 +42,19 @@
                     android:textColor="@android:color/white"
                     android:textSize="30dip"
                     android:textStyle="bold" />
-            </LinearLayout>
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/imageView"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:src="@drawable/setting_icon_256px"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="10dp" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/calendar_view"
@@ -64,7 +76,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/calendar_view"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:id="@+id/error_text"
@@ -88,16 +101,17 @@
                 android:layout_below="@+id/chart"
                 android:layout_gravity="center_horizontal|bottom"
                 android:background="@color/colorPrimary"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
 
                 <LinearLayout
                     android:id="@+id/FishStarView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dip"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:background="#fff"
                     android:orientation="vertical"
@@ -154,10 +168,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="10dip"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="5dip"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:background="#fff"
                     android:orientation="vertical"
