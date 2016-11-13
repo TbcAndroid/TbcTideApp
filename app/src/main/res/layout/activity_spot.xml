@@ -12,9 +12,9 @@
     
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        >
+        android:id="@+id/linearLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -82,4 +82,18 @@
                 android:layout_gravity="center" />
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="決定"
+        android:id="@+id/ok_button"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:background="#fff" />
+
 </RelativeLayout>

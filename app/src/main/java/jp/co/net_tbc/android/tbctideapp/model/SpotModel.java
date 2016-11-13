@@ -9,7 +9,8 @@ public class SpotModel implements Serializable {
     private static SpotModel spotModel = new SpotModel();
     private static final long serialVersionUID = -7464734216639422538L;
     private int portId = 0;
-    private String portName = "大阪";
+    private String prefectureName = "北海道";
+    private String portName = "函館";
     // 緯度
     private double latitude = 0;
     // 経度
@@ -28,6 +29,7 @@ public class SpotModel implements Serializable {
             setPortName(spotModel.getPortName());
             setLatitude(spotModel.getLatitude());
             setLongitude(spotModel.getLongitude());
+            setPrefectureName(spotModel.getPrefectureName());
         }
     }
 
@@ -54,4 +56,8 @@ public class SpotModel implements Serializable {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+    public String getPrefectureName() { return prefectureName; }
+
+    public void setPrefectureName(String prefectureName) { this.prefectureName = prefectureName; }
 }

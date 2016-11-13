@@ -20,7 +20,6 @@ import jp.co.net_tbc.android.tbctideapp.model.CalendarModel;
 import jp.co.net_tbc.android.tbctideapp.model.FishStarModel;
 import jp.co.net_tbc.android.tbctideapp.model.SpotModel;
 import jp.co.net_tbc.android.tbctideapp.model.WeatherModel;
-import jp.co.net_tbc.android.tbctideapp.util.MoonUtil;
 
 /**
  * Created by kenji on 2016/09/18.
@@ -51,15 +50,12 @@ public class MainActivityViewHelper {
         CalendarModel calendarModel = CalendarModel.getInstance();
         FishStarModel fishStarModel = FishStarModel.getInstance();
 
-        // 月齢を計算する
-        int moon_old = MoonUtil.calculateAgeOfTheMoon(calendarModel.getYear(), calendarModel.getMonth(), calendarModel.getDay());
-
         // テキストビューに値を入力する
-        moonOld.setText(activity.getString(R.string.moon_old) + String.valueOf(moon_old));
-        moonRise.setText(activity.getString(R.string.moonrise) + String.valueOf(fishStarModel.getMoonriseTime()));
-        moonSet.setText(activity.getString(R.string.moonset) + String.valueOf(fishStarModel.getMoonsetTime()));
-        sunRise.setText(activity.getString(R.string.sunrize) + String.valueOf(fishStarModel.getSunriseTime()));
-        sunSet.setText(activity.getString(R.string.sunset) + String.valueOf(fishStarModel.getSunsetTime()));
+        moonOld.setText(activity.getString(R.string.moon_old) + fishStarModel.getTideName());
+        moonRise.setText(activity.getString(R.string.moonrise) + fishStarModel.getMoonriseTime());
+        moonSet.setText(activity.getString(R.string.moonset) + fishStarModel.getMoonsetTime());
+        sunRise.setText(activity.getString(R.string.sunrize) + fishStarModel.getSunriseTime());
+        sunSet.setText(activity.getString(R.string.sunset) + fishStarModel.getSunsetTime());
     }
 
     public void setCalendarView() {

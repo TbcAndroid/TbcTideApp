@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        modelData.restoreModels();
+//        modelData.restoreModels();
     }
 
     @Override
