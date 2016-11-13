@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="font_color_tide_name">#FFC000</color>
     <color name="text_gray">#666666</color>
+    <color name="button_ok">#4BACC6</color>
+    <color name="white">#fff</color>
 </resources>

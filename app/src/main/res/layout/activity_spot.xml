@@ -94,6 +94,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="33dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:background="#fff" />
+        android:textColor="@color/white"
+        android:background="@color/button_ok" />
 
 </RelativeLayout>
