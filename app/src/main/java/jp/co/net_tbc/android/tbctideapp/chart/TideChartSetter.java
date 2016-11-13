@@ -3,6 +3,7 @@ package jp.co.net_tbc.android.tbctideapp.chart;
 import android.content.Context;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -23,6 +24,7 @@ public class TideChartSetter {
     private LineChart mChart;
     private Context context;
     private FishStarModel fishStarModel;
+    private static int textSize = 20;
 
     /**
      * Constructor.
@@ -37,18 +39,25 @@ public class TideChartSetter {
         initChart(mChart);
 
         // 縦軸の設定
-        LineDataSet lineDataSet = new LineDataSet(getEntry(), "潮位");
+        LineDataSet lineDataSet = new LineDataSet(getEntry(), "潮位(m)");
         lineDataSet.setDrawCubic(true);
         lineDataSet.setColor(context.getResources().getColor(R.color.colorPrimary));
         lineDataSet.setCircleColor(context.getResources().getColor(R.color.colorPrimary));
         lineDataSet.setLineWidth(2);
+        lineDataSet.setValueFormatter(new ChartFormatter());
+        lineDataSet.setValueTextSize(textSize);
         LineData data = new LineData(getLabel(), lineDataSet);
         mChart.setData(data);
+
+        // Y軸の軸名の大きさを設定する
+        Legend legend = mChart.getLegend();
+        legend.setTextSize(textSize);
     }
 
     private void initChart(LineChart mChart) {
         mChart.setDescription("時間");
         mChart.setTouchEnabled(false);
+        mChart.setDescriptionTextSize(textSize);
 
         YAxis rightAxis = mChart.getAxisRight();
         rightAxis.setEnabled(false);
@@ -57,6 +66,7 @@ public class TideChartSetter {
         yAxis.setDrawGridLines(false);
         yAxis.setAxisMaxValue(200);
         yAxis.setAxisMinValue(0);
+        yAxis.setTextSize(textSize);
 
         XAxis xAxis = mChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
