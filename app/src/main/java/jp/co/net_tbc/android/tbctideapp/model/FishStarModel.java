@@ -43,6 +43,8 @@ public class FishStarModel implements Serializable {
             setMoonsetTime(fishStarModel.getMoonsetTime());
             setTideName(fishStarModel.getTideName());
             setTidedetails(fishStarModel.getTidedetails());
+            setLongitude(fishStarModel.getLongitude());
+            setLatitude(fishStarModel.getLatitude());
         }
     }
 

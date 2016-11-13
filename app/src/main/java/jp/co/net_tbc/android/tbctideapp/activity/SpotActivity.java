@@ -33,13 +33,15 @@ public class SpotActivity extends AppCompatActivity {
         prefectureSpinner = (Spinner) findViewById(R.id.spinner_prefecture);
         portSpinner = (Spinner) findViewById(R.id.spinner_spot);
         okButton = (Button) findViewById(R.id.ok_button);
+        SpotModel spotModel = SpotModel.getInstance();
 
         // Spinnerに値を設定するためのAdapterを作成する
         final ArrayAdapter<String> prefectureAdpter = createAdapter(PortManager.getPrefs());
         prefectureSpinner.setAdapter(prefectureAdpter);
 
-        // 初期値設定
-        prefectureSpinner.setSelection(prefectureAdpter.getPosition(SpotModel.getInstance().getPrefectureName()));
+        // 県名の初期値設定
+        prefectureSpinner.setSelection(prefectureAdpter.getPosition(spotModel.getPrefectureName()));
+        initPortSpinnerAdapter(spotModel.getPrefectureName(), portSpinner, prefectureSpinner);
 
         // Spinnerのアイテムが選択された時に呼び出されるコールバックリスナーを登録する
         setPrefectureSpinnerListener(prefectureSpinner, portSpinner);
@@ -56,8 +58,8 @@ public class SpotActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop(){
-        super.onStop();
+    protected void onPause(){
+        super.onPause();
         savePortData(portSpinner, prefectureSpinner);
     }
 
@@ -80,19 +82,6 @@ public class SpotActivity extends AppCompatActivity {
         });
     }
 
-//    private void setPortSpinnerListener(final Spinner portSpinner, final Spinner prefectureSpinner){
-//        portSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                savePortData(portSpinner, prefectureSpinner);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) { }
-//        });
-//    }
-
     private void savePortData(final Spinner portSpinner, final Spinner prefectureSpinner){
         String portName = (String)portSpinner.getSelectedItem();
         int portNumber = PortManager.getPortId(portName);
@@ -109,9 +98,9 @@ public class SpotActivity extends AppCompatActivity {
         List<String> portNameList = PortManager.getPorts(prefectureName);
         ArrayAdapter<String> adapter = createAdapter(portNameList);
         portSpinner.setAdapter(adapter);
-        // Spinnerのアイテムが選択された時に呼び出されるコールバックリスナーを登録する
-//        setPortSpinnerListener(portSpinner, prefectureSpinner);
-        // 初期値設定
-        portSpinner.setSelection(adapter.getPosition(SpotModel.getInstance().getPrefectureName()));
+        // 港名の初期値設定
+        if(PortManager.getPorts(prefectureName).contains(SpotModel.getInstance().getPortName())){
+            portSpinner.setSelection(adapter.getPosition(SpotModel.getInstance().getPortName()));
+        }
     }
 }
