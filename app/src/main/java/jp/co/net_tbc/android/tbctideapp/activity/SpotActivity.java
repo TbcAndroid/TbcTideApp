@@ -8,12 +8,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import jp.co.net_tbc.android.tbctideapp.R;
 import jp.co.net_tbc.android.tbctideapp.model.SpotModel;
@@ -32,7 +28,7 @@ public class SpotActivity extends AppCompatActivity {
         // Widgetインスタンス
         prefectureSpinner = (Spinner) findViewById(R.id.spinner_prefecture);
         portSpinner = (Spinner) findViewById(R.id.spinner_spot);
-        okButton = (Button) findViewById(R.id.ok_button);
+        okButton = (Button) findViewById(R.id.ok_button_calendar);
         SpotModel spotModel = SpotModel.getInstance();
 
         // Spinnerに値を設定するためのAdapterを作成する
@@ -50,6 +46,7 @@ public class SpotActivity extends AppCompatActivity {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                savePortData(portSpinner, prefectureSpinner);
                 //MainActivityへ画面遷移する
                 Intent intent = new Intent(v.getContext(), MainActivity.class);
                 startActivity(intent);
@@ -57,11 +54,11 @@ public class SpotActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onPause(){
-        super.onPause();
-        savePortData(portSpinner, prefectureSpinner);
-    }
+//    @Override
+//    protected void onPause(){
+//        super.onPause();
+//        savePortData(portSpinner, prefectureSpinner);
+//    }
 
     private ArrayAdapter<String> createAdapter(List<String> items) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.sppiner_text, items);

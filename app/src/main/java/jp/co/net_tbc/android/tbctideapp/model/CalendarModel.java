@@ -12,7 +12,7 @@ public class CalendarModel implements Serializable {
     int year;
     int month;
     int day;
-    String dayOfWeek = "金曜日";
+    int dayOfWeek = 0;
 
     /**
      * constructor.
@@ -62,11 +62,11 @@ public class CalendarModel implements Serializable {
         this.day = day;
     }
 
-    public String getDayOfWeek() {
+    public int getDayOfWeek() {
         return dayOfWeek;
     }
 
-    public void setDayOfWeek(String dayOfWeek) {
+    public void setDayOfWeek(int dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
 }
