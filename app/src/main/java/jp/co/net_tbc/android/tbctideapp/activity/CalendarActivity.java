@@ -54,7 +54,7 @@ public class CalendarActivity extends Activity implements OnDateChangeListener,O
         this.day = dayOfMonth;
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(view.getDate());
+        calendar.set(year, month, dayOfMonth);
         this.dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 	}
 

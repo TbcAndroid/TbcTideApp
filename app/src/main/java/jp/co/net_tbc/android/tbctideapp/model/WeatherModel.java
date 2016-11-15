@@ -149,13 +149,13 @@ public class WeatherModel implements Serializable {
         Calendar nowCalendar0hour = Calendar.getInstance();
         Calendar modelCalendar = Calendar.getInstance();
 
-        nowCalendar0hour.set(nowCalendar.get(Calendar.YEAR), nowCalendar.get(Calendar.MONTH) + 1, nowCalendar.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
-        modelCalendar.set(CalendarModel.getInstance().getYear(), CalendarModel.getInstance().getMonth(), CalendarModel.getInstance().getDay(), 0, 0, 0);
+        nowCalendar0hour.set(nowCalendar.get(Calendar.YEAR), nowCalendar.get(Calendar.MONTH), nowCalendar.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+        modelCalendar.set(CalendarModel.getInstance().getYear(), CalendarModel.getInstance().getMonth() - 1, CalendarModel.getInstance().getDay(), 0, 0, 0);
         modelCalendar.set(Calendar.MILLISECOND, 0);
         nowCalendar0hour.set(Calendar.MILLISECOND, 0);
-        long difMiliSecs = nowCalendar0hour.getTimeInMillis() - modelCalendar.getTimeInMillis();
+        long difMiliSecs = modelCalendar.getTimeInMillis() - nowCalendar0hour.getTimeInMillis();
         int MILLIS_OF_DAY = 1000 * 60 * 60 * 24;
-        if (difMiliSecs != 0) {
+        if (difMiliSecs > 0) {
             return (int) (difMiliSecs / MILLIS_OF_DAY);
         } else {
             return 0;

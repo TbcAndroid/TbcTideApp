@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -65,7 +66,8 @@ public class MainActivityViewHelper {
         // モデルのインスタンスを取得する
         CalendarModel calendarModel = CalendarModel.getInstance();
         FishStarModel fishStarModel = FishStarModel.getInstance();
-        String htmlStr = calendarModel.getMonth() + "月" + calendarModel.getDay() + "日(" + calendarModel.getDayOfWeek() + ") " + "<font color=" + activity.getText(R.string.font_color_tide_name) + ">" + fishStarModel.getTideName() + "</font>";
+        int index = calendarModel.getDayOfWeek() - 1;
+        String htmlStr = calendarModel.getMonth() + "月" + calendarModel.getDay() + "日(" + CalendarActivity.week_name[index] + ") " + "<font color=" + activity.getText(R.string.font_color_tide_name) + ">" + fishStarModel.getTideName() + "</font>";
         textView.setText(Html.fromHtml(htmlStr));
     }
 
@@ -126,6 +128,8 @@ public class MainActivityViewHelper {
         TextView deg = (TextView) activity.findViewById(R.id.deg);
         TextView speed = (TextView) activity.findViewById(R.id.speed);
         TextView hp = (TextView) activity.findViewById(R.id.hp);
+        LinearLayout ll = (LinearLayout) activity.findViewById((R.id.weatherNormalLayout));
+        LinearLayout ll2 = (LinearLayout) activity.findViewById((R.id.weatherNormalLayout2));
 
         if (weatherEna) {
             weatherIcon.setVisibility(View.VISIBLE);
@@ -136,6 +140,8 @@ public class MainActivityViewHelper {
             speed.setVisibility(View.VISIBLE);
             hp.setVisibility(View.VISIBLE);
             errText.setVisibility(View.GONE);
+            ll.setVisibility(View.VISIBLE);
+            ll2.setVisibility(View.VISIBLE);
         } else {
             weatherIcon.setVisibility(View.GONE);
             weatherSummary.setVisibility(View.GONE);
@@ -145,6 +151,8 @@ public class MainActivityViewHelper {
             speed.setVisibility(View.GONE);
             hp.setVisibility(View.GONE);
             errText.setVisibility(View.VISIBLE);
+            ll.setVisibility(View.GONE);
+            ll2.setVisibility(View.GONE);
         }
     }
 
