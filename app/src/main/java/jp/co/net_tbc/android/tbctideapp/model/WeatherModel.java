@@ -155,11 +155,7 @@ public class WeatherModel implements Serializable {
         nowCalendar0hour.set(Calendar.MILLISECOND, 0);
         long difMiliSecs = modelCalendar.getTimeInMillis() - nowCalendar0hour.getTimeInMillis();
         int MILLIS_OF_DAY = 1000 * 60 * 60 * 24;
-        if (difMiliSecs > 0) {
-            return (int) (difMiliSecs / MILLIS_OF_DAY);
-        } else {
-            return 0;
-        }
+        return (int) (difMiliSecs / MILLIS_OF_DAY);
     }
 
     public static String getWeatherDesciption(int id) {

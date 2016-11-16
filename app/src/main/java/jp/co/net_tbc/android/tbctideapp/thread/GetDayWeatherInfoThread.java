@@ -41,6 +41,8 @@ public class GetDayWeatherInfoThread implements Runnable {
 
     private void setWeatherModel(JsonNode jsonNode) {
         int difDay = WeatherModel.getDifDay();
+        if(difDay < 0)
+            difDay = 0;
         WeatherModel weatherModel = WeatherModel.getInstance();
         int id = jsonNode.path("list").get(difDay).path("weather").get(0).get("id").intValue();
         weatherModel.setId(id);

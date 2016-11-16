@@ -48,7 +48,6 @@ public class MainActivityViewHelper {
         TextView sunSet = (TextView) activity.findViewById(R.id.sunset);
 
         // モデルのインスタンスを取得する
-        CalendarModel calendarModel = CalendarModel.getInstance();
         FishStarModel fishStarModel = FishStarModel.getInstance();
 
         // テキストビューに値を入力する
