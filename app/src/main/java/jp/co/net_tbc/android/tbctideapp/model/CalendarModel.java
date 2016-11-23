@@ -12,7 +12,7 @@ public class CalendarModel implements Serializable {
     int year;
     int month;
     int day;
-    int dayOfWeek = 0;
+    int dayOfWeek = 1;
 
     /**
      * constructor.
